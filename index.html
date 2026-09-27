@@ -1,0 +1,1332 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Audio Pro AI - Content Creator Voice Suite</title>
+    
+    <!-- SEO & Meta Tags untuk keperluan Share Sosmed -->
+    <meta name="description" content="Voice Audio Pro AI - Solusi voice over AI natural untuk content creator, affiliate, dan promosi.">
+    <meta name="keywords" content="AI Voice, Text to Speech, Voice Over AI, Content Creator, Audio Pro AI">
+    <meta property="og:title" content="Voice Audio Pro AI - Content Creator Voice Suite">
+    <meta property="og:description" content="Bikin konten jadi lebih hidup dengan Voice Audio Pro AI. Solusi text-to-speech natural untuk berbagai bahasa.">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <!-- Favicon (Inline SVG agar tetap satu file) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎙️</text></svg>">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            200: '#ddd6fe',
+                            300: '#c4b5fd',
+                            400: '#a78bfa',
+                            500: '#8b5cf6',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                        },
+                        surface: {
+                            light: '#fafafa',
+                            card: '#ffffff',
+                        }
+                    },
+                    boxShadow: {
+                        'premium': '0 10px 40px -10px rgba(0,0,0,0.05)',
+                        'floating': '0 20px 40px -10px rgba(139, 92, 246, 0.15)',
+                    },
+                    animation: {
+                        'blob': 'blob 7s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 30s linear infinite',
+                        'waveform': 'waveform 1s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
+                        waveform: {
+                            '0%': { transform: 'scaleY(0.2)' },
+                            '100%': { transform: 'scaleY(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <style>
+        body {
+            background-color: #fafafa;
+            color: #111827;
+            overflow-x: hidden;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .glass-header {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+        }
+
+        .text-gradient {
+            background: linear-gradient(to right, #7c3aed, #06b6d4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* Audio Player custom range */
+        input[type=range] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 12px;
+            width: 12px;
+            border-radius: 50%;
+            background: #8b5cf6;
+            cursor: pointer;
+            margin-top: -4px;
+            box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.2);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #e5e7eb;
+            border-radius: 2px;
+        }
+        
+        /* Waveform simulation */
+        .wave-bar {
+            width: 3px;
+            background-color: #d1d5db;
+            border-radius: 3px;
+            transition: background-color 0.3s;
+        }
+        .playing .wave-bar {
+            background-color: #8b5cf6;
+            animation: waveform 0.5s ease-in-out infinite alternate;
+        }
+        .playing .wave-bar:nth-child(even) { animation-duration: 0.7s; }
+        .playing .wave-bar:nth-child(3n) { animation-duration: 0.4s; }
+    </style>
+</head>
+<body class="antialiased selection:bg-brand-200 selection:text-brand-900">
+
+    <header class="fixed top-0 w-full z-50 glass-header transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-cyan-400 flex items-center justify-center text-white shadow-lg shadow-brand-500/20">
+                    <i class="ph ph-waveform text-xl font-bold"></i>
+                </div>
+                <div>
+                    <h1 class="font-bold text-gray-900 leading-none tracking-tight">VOICE AUDIO PRO AI</h1>
+                    <span class="text-[10px] font-medium text-gray-500 tracking-wider">CONTENT CREATOR VOICE SUITE</span>
+                </div>
+            </div>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="#solusi" class="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">Solusi</a>
+                <a href="#demo" class="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">Demo Voice</a>
+                <a href="#bonus" class="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">Bonus</a>
+                <a href="#faq" class="text-sm font-medium text-gray-600 hover:text-brand-600 transition-colors">FAQ</a>
+                <a href="#demo" class="px-5 py-2.5 rounded-full bg-gray-900 text-white text-sm font-medium hover:bg-brand-600 transition-all shadow-md">Dengarkan Voice</a>
+            </nav>
+
+            <!-- Mobile Menu Toggle -->
+            <button class="md:hidden text-gray-600 text-2xl" id="mobileMenuBtn">
+                <i class="ph ph-list"></i>
+            </button>
+        </div>
+        
+        <!-- Mobile Nav (Hidden by default) -->
+        <div class="md:hidden absolute top-full left-0 w-full bg-white border-b border-gray-100 shadow-xl hidden flex-col py-4 px-6 gap-4" id="mobileNav">
+            <a href="#solusi" class="text-base font-medium text-gray-800" onclick="document.getElementById('mobileNav').classList.add('hidden')">Solusi</a>
+            <a href="#demo" class="text-base font-medium text-gray-800" onclick="document.getElementById('mobileNav').classList.add('hidden')">Demo Voice</a>
+            <a href="#bonus" class="text-base font-medium text-gray-800" onclick="document.getElementById('mobileNav').classList.add('hidden')">Bonus</a>
+            <a href="#faq" class="text-base font-medium text-gray-800" onclick="document.getElementById('mobileNav').classList.add('hidden')">FAQ</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="pt-32 pb-20 lg:pt-48 lg:pb-32 relative overflow-hidden">
+            <!-- Background blobs -->
+            <div class="absolute top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
+                <div class="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] rounded-full bg-brand-200/50 mix-blend-multiply filter blur-[80px] opacity-70 animate-blob"></div>
+                <div class="absolute top-[20%] right-[10%] w-[400px] h-[400px] rounded-full bg-cyan-200/50 mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-2000"></div>
+                <div class="absolute bottom-[-10%] left-[-10%] w-[600px] h-[600px] rounded-full bg-purple-200/50 mix-blend-multiply filter blur-[80px] opacity-70 animate-blob animation-delay-4000"></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Left Content -->
+                <div class="reveal-up z-10">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-50 border border-brand-100 mb-6">
+                        <span class="w-2 h-2 rounded-full bg-brand-500 animate-pulse"></span>
+                        <span class="text-xs font-semibold text-brand-700 tracking-wide">AI VOICE FOR MODERN CREATORS</span>
+                    </div>
+                    
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 leading-[1.1] mb-6">
+                        VIDEO SUDAH BAGUS.<br>
+                        <span class="text-gray-400">TAPI SUARANYA</span><br>
+                        <span class="text-gradient">MASIH TERASA BIASA?</span>
+                    </h1>
+                    
+                    <p class="text-base sm:text-lg text-gray-600 mb-8 leading-relaxed max-w-xl">
+                        Bikin konten sudah capek-capek, visual sudah bagus, editing sudah rapi, tapi begitu masuk voice over malah terasa kurang hidup?<br><br>
+                        Suara yang terlalu datar, kurang natural, atau tidak cocok dengan karakter konten bisa membuat video yang sebenarnya sudah bagus jadi terasa biasa.<br><br>
+                        Voice Audio Pro AI hadir untuk membantu creator mendapatkan voice yang lebih natural, jelas, dan punya karakter untuk berbagai kebutuhan konten — mulai dari affiliate, promosi produk, storytelling, sampai video profesional.
+                    </p>
+                    
+                    <a href="#demo" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gray-900 text-white font-semibold hover:bg-brand-600 transition-all shadow-lg hover:shadow-brand-500/30 transform hover:-translate-y-1 w-full sm:w-auto">
+                        <i class="ph-fill ph-microphone-stage text-xl"></i>
+                        DENGARKAN CONTOH VOICE
+                    </a>
+                </div>
+
+                <!-- Right Visual -->
+                <div class="relative hidden lg:block reveal-scale z-10">
+                    <!-- Main floating card -->
+                    <div class="glass-card rounded-3xl p-6 relative z-10 animate-float shadow-floating">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div class="w-12 h-12 rounded-full bg-gray-100 overflow-hidden relative">
+                                <img src="https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?auto=format&fit=crop&w=150&h=150" alt="AI Avatar" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 border-2 border-brand-500 rounded-full"></div>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-900">Natural Storyteller</h3>
+                                <p class="text-xs text-brand-600 font-medium">Generating voice...</p>
+                            </div>
+                            <div class="ml-auto">
+                                <i class="ph-fill ph-check-circle text-green-500 text-xl"></i>
+                            </div>
+                        </div>
+
+                        <!-- Waveform Mockup -->
+                        <div class="h-16 flex items-end gap-1 mb-6 px-2 justify-between opacity-80">
+                            <!-- Generate bars via JS later, for now static HTML -->
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[20%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[40%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[70%]"></div>
+                            <div class="w-1.5 bg-brand-400 rounded-t-sm h-[100%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[60%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[30%]"></div>
+                            <div class="w-1.5 bg-brand-400 rounded-t-sm h-[80%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[50%]"></div>
+                            <div class="w-1.5 bg-brand-300 rounded-t-sm h-[20%]"></div>
+                            <div class="w-1.5 bg-brand-400 rounded-t-sm h-[90%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[40%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[60%]"></div>
+                            <div class="w-1.5 bg-brand-300 rounded-t-sm h-[30%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[70%]"></div>
+                            <div class="w-1.5 bg-brand-400 rounded-t-sm h-[100%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[50%]"></div>
+                            <div class="w-1.5 bg-brand-500 rounded-t-sm h-[20%]"></div>
+                        </div>
+
+                        <!-- Player Controls Mockup -->
+                        <div class="flex items-center gap-4 bg-gray-50 p-3 rounded-2xl">
+                            <button class="w-10 h-10 rounded-full bg-white shadow flex items-center justify-center text-brand-600">
+                                <i class="ph-fill ph-play"></i>
+                            </button>
+                            <div class="flex-1">
+                                <div class="h-1.5 bg-gray-200 rounded-full w-full overflow-hidden">
+                                    <div class="h-full bg-brand-500 w-1/3"></div>
+                                </div>
+                            </div>
+                            <span class="text-xs font-medium text-gray-500">0:12 / 0:45</span>
+                        </div>
+                    </div>
+
+                    <!-- Decorative elements -->
+                    <div class="absolute -top-10 -right-10 w-32 h-32 glass-card rounded-2xl animate-float animation-delay-2000 flex items-center justify-center p-4">
+                        <div class="text-center">
+                            <i class="ph-fill ph-translate text-3xl text-cyan-500 mb-1"></i>
+                            <p class="text-[10px] font-bold">MULTILINGUAL</p>
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-12 -left-8 w-40 glass-card rounded-2xl p-4 animate-float animation-delay-4000">
+                        <div class="flex items-center gap-3">
+                            <i class="ph-fill ph-sparkle text-2xl text-yellow-500"></i>
+                            <div>
+                                <p class="text-xs font-bold">Natural Tone</p>
+                                <p class="text-[10px] text-gray-500">Human-like quality</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-12 border-y border-gray-100 bg-white">
+            <div class="max-w-7xl mx-auto px-6">
+                <p class="text-center text-xs font-bold text-gray-400 tracking-[0.2em] mb-6">DIPERCAYA UNTUK BERBAGAI KEBUTUHAN KONTEN</p>
+                <div class="flex overflow-x-auto hide-scrollbar gap-8 justify-between items-center opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
+                    <div class="flex items-center gap-2 shrink-0"><i class="ph ph-users text-2xl"></i><span class="font-semibold text-sm">CREATOR</span></div>
+                    <div class="flex items-center gap-2 shrink-0"><i class="ph ph-shopping-cart text-2xl"></i><span class="font-semibold text-sm">AFFILIATE</span></div>
+                    <div class="flex items-center gap-2 shrink-0"><i class="ph ph-package text-2xl"></i><span class="font-semibold text-sm">PRODUCT VIDEO</span></div>
+                    <div class="flex items-center gap-2 shrink-0"><i class="ph ph-megaphone text-2xl"></i><span class="font-semibold text-sm">PROMOSI</span></div>
+                    <div class="flex items-center gap-2 shrink-0"><i class="ph ph-book-open text-2xl"></i><span class="font-semibold text-sm">STORYTELLING</span></div>
+                    <div class="flex items-center gap-2 shrink-0"><i class="ph ph-instagram-logo text-2xl"></i><span class="font-semibold text-sm">SOCIAL MEDIA</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-surface-light relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                        KONTEN SUDAH SIAP.<br>
+                        TINGGAL VOICE OVER.<br>
+                        <span class="text-gray-400">TAPI DI SINILAH SERING TERASA RIBET.</span>
+                    </h2>
+                </div>
+
+                <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Problem Cards -->
+                    <div class="glass-card rounded-3xl p-8 reveal-up relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="absolute -right-4 -top-4 text-8xl font-black text-gray-50 opacity-50 group-hover:text-brand-50 transition-colors">01</div>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">CREATOR PEMULA</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">"Masih mencari voice yang terdengar natural dan nyaman didengarkan."</p>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-3xl p-8 reveal-up delay-100 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="absolute -right-4 -top-4 text-8xl font-black text-gray-50 opacity-50 group-hover:text-brand-50 transition-colors">02</div>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">CREATOR MENENGAH</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">"Produksi konten semakin banyak, sementara proses voice masih memakan waktu."</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-8 reveal-up delay-200 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="absolute -right-4 -top-4 text-8xl font-black text-gray-50 opacity-50 group-hover:text-brand-50 transition-colors">03</div>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">CREATOR PROFESIONAL</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">"Membutuhkan karakter voice yang konsisten untuk berbagai kebutuhan konten."</p>
+                        </div>
+                    </div>
+
+                    <div class="glass-card rounded-3xl p-8 reveal-up delay-300 relative overflow-hidden group hover:-translate-y-2 transition-transform duration-300">
+                        <div class="absolute -right-4 -top-4 text-8xl font-black text-gray-50 opacity-50 group-hover:text-brand-50 transition-colors">04</div>
+                        <div class="relative z-10">
+                            <h3 class="text-lg font-bold text-gray-900 mb-3">CREATOR AFFILIATE</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed">"Produk terus berganti dan konten harus terus dibuat."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-32 bg-gray-900 text-white text-center px-6 relative overflow-hidden">
+             <!-- Abstract background elements for dark section -->
+             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+
+            <div class="max-w-3xl mx-auto reveal-up relative z-10">
+                <p class="text-2xl md:text-4xl font-medium text-gray-400 leading-snug mb-12">
+                    Video sudah selesai.<br>
+                    Editing sudah selesai.<br>
+                    Produk sudah siap.<br><br>
+                    <span class="text-white">Tinggal satu bagian lagi.</span>
+                </p>
+                
+                <h2 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-cyan-400 mb-8 tracking-tighter">
+                    VOICE OVER
+                </h2>
+                
+                <p class="text-lg text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                    Voice yang tepat membantu pesan dalam sebuah konten terasa lebih nyaman untuk didengarkan dan lebih sesuai dengan karakter yang ingin disampaikan.
+                </p>
+            </div>
+        </section>
+
+        <section id="solusi" class="py-24 bg-white relative">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
+                    <span class="inline-block py-1 px-3 rounded-full bg-gray-100 text-xs font-bold text-gray-600 tracking-widest mb-4">INTRODUCING</span>
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-6">VOICE AUDIO PRO AI</h2>
+                    <p class="text-lg text-gray-600">Solusi voice AI untuk membantu creator menghasilkan voice yang siap digunakan untuk berbagai kebutuhan konten.</p>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-8 reveal-scale">
+                    <div class="bg-surface-light rounded-3xl p-6 text-center border border-gray-100 hover:shadow-premium transition-shadow">
+                        <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4 text-brand-500 text-3xl">
+                            <i class="ph-fill ph-leaf"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">NATURAL</h3>
+                    </div>
+                    <div class="bg-surface-light rounded-3xl p-6 text-center border border-gray-100 hover:shadow-premium transition-shadow">
+                        <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4 text-cyan-500 text-3xl">
+                            <i class="ph-fill ph-waves"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">CLEAR</h3>
+                    </div>
+                    <div class="bg-surface-light rounded-3xl p-6 text-center border border-gray-100 hover:shadow-premium transition-shadow">
+                        <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4 text-pink-500 text-3xl">
+                            <i class="ph-fill ph-mask-happy"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">EXPRESSIVE</h3>
+                    </div>
+                    <div class="bg-surface-light rounded-3xl p-6 text-center border border-gray-100 hover:shadow-premium transition-shadow">
+                        <div class="w-16 h-16 mx-auto bg-white rounded-2xl shadow-sm flex items-center justify-center mb-4 text-yellow-500 text-3xl">
+                            <i class="ph-fill ph-arrows-out-cardinal"></i>
+                        </div>
+                        <h3 class="font-bold text-gray-900 mb-2">VERSATILE</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-brand-50/50">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-12 reveal-up">
+                    <h3 class="text-sm font-bold text-brand-600 tracking-widest mb-3">DIBUAT UNTUK CREATOR.</h3>
+                    <p class="text-gray-600 max-w-2xl mx-auto">Database voice Audioproai dan sistem AI yang dirancang untuk berbagai kebutuhan konten.</p>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 reveal-up">
+                    <div class="bg-white rounded-3xl p-6 border border-brand-100 text-center shadow-sm">
+                        <p class="text-xs font-semibold text-gray-400 mb-2">NASKAH AI</p>
+                        <p class="text-4xl font-black text-gray-900 mb-1 stat-number" data-target="50000">0</p>
+                        <p class="text-brand-500 font-bold">+</p>
+                        <p class="text-xs text-gray-500 mt-2">Naskah iklan & video jadi</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 border border-brand-100 text-center shadow-sm">
+                        <p class="text-xs font-semibold text-gray-400 mb-2">TOTAL AUDIO</p>
+                        <p class="text-4xl font-black text-gray-900 mb-1 stat-number" data-target="25000">0</p>
+                        <p class="text-brand-500 font-bold">+</p>
+                        <p class="text-xs text-gray-500 mt-2">Audio AI berhasil dibuat</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 border border-brand-100 text-center shadow-sm">
+                        <p class="text-xs font-semibold text-gray-400 mb-2">KARAKTER SUARA</p>
+                        <p class="text-4xl font-black text-gray-900 mb-1 stat-number" data-target="20">0</p>
+                        <p class="text-brand-500 font-bold">+</p>
+                        <p class="text-xs text-gray-500 mt-2">Karakter suara AI realistis</p>
+                    </div>
+                    <div class="bg-white rounded-3xl p-6 border border-brand-100 text-center shadow-sm">
+                        <p class="text-xs font-semibold text-gray-400 mb-2">PENGGUNA AKTIF</p>
+                        <p class="text-4xl font-black text-gray-900 mb-1 stat-number" data-target="2000">0</p>
+                        <p class="text-brand-500 font-bold">+</p>
+                        <p class="text-xs text-gray-500 mt-2">Kreator menggunakan platform</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-white">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16 reveal-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">
+                        DARI VIDEO BIASA<br>
+                        MENJADI KONTEN YANG LEBIH HIDUP.
+                    </h2>
+                    <p class="text-gray-600">Lihat perbedaannya ketika konten yang sama diberikan voice menggunakan VOICE AUDIO PRO AI.</p>
+                </div>
+
+                <div class="flex flex-col lg:flex-row gap-8 reveal-scale">
+                    <!-- Before -->
+                    <div class="flex-1 bg-surface-light rounded-[2.5rem] p-6 border border-gray-100 shadow-sm">
+                        <div class="mb-4">
+                            <span class="inline-block px-3 py-1 bg-gray-200 text-gray-700 text-xs font-bold rounded-full mb-1">BEFORE</span>
+                            <p class="text-sm font-medium text-gray-500">WITHOUT VOICE</p>
+                        </div>
+                        <div class="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-gray-200">
+                            <!-- Container for Before Video -->
+                            <div id="before-video-container" class="absolute inset-0"></div>
+                        </div>
+                    </div>
+
+                    <!-- After -->
+                    <div class="flex-1 bg-brand-50/30 rounded-[2.5rem] p-6 border border-brand-100 shadow-premium relative">
+                        <div class="absolute -right-3 -top-3 w-12 h-12 bg-gradient-to-br from-brand-500 to-cyan-400 rounded-full flex items-center justify-center text-white shadow-lg shadow-brand-500/30 z-10 animate-bounce">
+                            <i class="ph-fill ph-sparkle text-2xl"></i>
+                        </div>
+                        <div class="mb-4">
+                            <span class="inline-block px-3 py-1 bg-brand-500 text-white text-xs font-bold rounded-full mb-1">AFTER</span>
+                            <p class="text-sm font-medium text-brand-600">WITH VOICE AUDIO PRO AI</p>
+                        </div>
+                        <div class="relative w-full aspect-[9/16] rounded-2xl overflow-hidden bg-gray-200">
+                             <!-- Container for After Video -->
+                             <div id="after-video-container" class="absolute inset-0"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-16 text-center reveal-up">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-3">SUDAH TERLIHAT PERBEDAANNYA?</h3>
+                    <p class="text-gray-600 max-w-xl mx-auto mb-8">Sekarang dengarkan langsung karakter voice yang digunakan untuk membuat konten terasa lebih natural, jelas, dan hidup.</p>
+                    <a href="#demo" class="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-brand-600 text-white font-semibold hover:bg-gray-900 transition-all shadow-lg shadow-brand-500/30">
+                        <i class="ph-fill ph-headphones text-xl"></i>
+                        DENGARKAN CONTOH VOICE
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="demo" class="py-24 bg-surface-light relative">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-16 reveal-up">
+                    <h2 class="text-4xl md:text-5xl font-extrabold text-gray-900 tracking-tight mb-4">DENGARKAN SENDIRI.</h2>
+                    <p class="text-gray-600 text-lg">Kualitas voice lebih mudah dirasakan daripada sekadar dijelaskan.</p>
+                </div>
+
+                <div class="grid sm:grid-cols-2 gap-6" id="main-audio-container">
+                    <!-- Audio Players will be injected here via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-white border-t border-gray-100">
+            <div class="max-w-5xl mx-auto px-6">
+                <div class="text-center mb-12 reveal-up">
+                    <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">SATU VOICE AI.<br><span class="text-brand-500">BERBAGAI BAHASA.</span></h2>
+                    <p class="text-gray-600 max-w-xl mx-auto">Tidak hanya untuk bahasa Indonesia. Voice Audio Pro AI juga dapat digunakan untuk berbagai bahasa dan kebutuhan konten.</p>
+                </div>
+
+                <!-- Language Selector -->
+                <div class="flex overflow-x-auto hide-scrollbar gap-2 mb-8 justify-start md:justify-center p-1 bg-gray-50 rounded-2xl w-fit mx-auto border border-gray-200">
+                    <button class="lang-tab active px-6 py-2.5 rounded-xl text-sm font-semibold transition-all bg-white shadow-sm text-brand-600" data-lang="english">🇬🇧 ENGLISH</button>
+                    <button class="lang-tab px-6 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-gray-900" data-lang="japanese">🇯🇵 JAPANESE</button>
+                    <button class="lang-tab px-6 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-gray-900" data-lang="korean">🇰🇷 KOREAN</button>
+                    <button class="lang-tab px-6 py-2.5 rounded-xl text-sm font-medium transition-all text-gray-500 hover:text-gray-900" data-lang="spanish">🇪🇸 SPANISH</button>
+                </div>
+
+                <!-- Multilingual Player Container -->
+                <div class="max-w-lg mx-auto" id="multilingual-audio-container">
+                     <!-- Single dynamic player for languages -->
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-surface-light relative overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-20 reveal-up">
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight leading-tight">
+                        BUKAN HANYA MENGHASILKAN SUARA.<br>
+                        <span class="text-gray-400">TAPI MEMBERIKAN KARAKTER PADA PESAN.</span>
+                    </h2>
+                </div>
+
+                <!-- Floating Visuals -->
+                <div class="relative h-[200px] mb-20 hidden md:block">
+                    <div class="absolute top-0 left-[10%] px-6 py-3 bg-white rounded-2xl shadow-floating text-brand-600 font-bold border border-brand-100 animate-float">NATURAL</div>
+                    <div class="absolute bottom-[20%] left-[35%] px-6 py-3 bg-white rounded-2xl shadow-floating text-cyan-600 font-bold border border-cyan-100 animate-float animation-delay-2000">COMMERCIAL</div>
+                    <div class="absolute top-[10%] right-[35%] px-6 py-3 bg-white rounded-2xl shadow-floating text-pink-600 font-bold border border-pink-100 animate-float animation-delay-4000">STORY</div>
+                    <div class="absolute bottom-0 right-[10%] px-6 py-3 bg-white rounded-2xl shadow-floating text-purple-600 font-bold border border-purple-100 animate-float">WHISPER</div>
+                </div>
+
+                <div class="text-center mb-12 reveal-up">
+                    <h3 class="text-2xl font-bold text-gray-900">SATU VOICE.<br>BANYAK KEBUTUHAN.</h3>
+                </div>
+
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 reveal-scale">
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-center group hover:border-brand-300 transition-colors">
+                        <div class="w-12 h-12 mx-auto bg-brand-50 rounded-full flex items-center justify-center text-brand-500 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-shopping-bag text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">AFFILIATE</h4>
+                        <p class="text-xs text-gray-500">Review produk menarik</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-center group hover:border-brand-300 transition-colors">
+                        <div class="w-12 h-12 mx-auto bg-brand-50 rounded-full flex items-center justify-center text-brand-500 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-package text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">PRODUCT VIDEO</h4>
+                        <p class="text-xs text-gray-500">Presentasi profesional</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-center group hover:border-brand-300 transition-colors">
+                        <div class="w-12 h-12 mx-auto bg-brand-50 rounded-full flex items-center justify-center text-brand-500 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-book-open text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">STORYTELLING</h4>
+                        <p class="text-xs text-gray-500">Narasi yang mengalir</p>
+                    </div>
+                    <div class="bg-white p-6 rounded-3xl shadow-sm border border-gray-100 text-center group hover:border-brand-300 transition-colors">
+                        <div class="w-12 h-12 mx-auto bg-brand-50 rounded-full flex items-center justify-center text-brand-500 mb-4 group-hover:scale-110 transition-transform">
+                            <i class="ph-fill ph-megaphone text-2xl"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-2">PROMOSI</h4>
+                        <p class="text-xs text-gray-500">Iklan yang persuasif</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-900 text-white overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 mb-12">
+                <div class="reveal-up">
+                    <h2 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">
+                        LIHAT VOICE-NYA<br>KETIKA MASUK KE DALAM KONTEN.
+                    </h2>
+                    <p class="text-gray-400 max-w-xl text-lg">Dengarkan suaranya. Lihat visualnya. Bayangkan ketika digunakan pada kontenmu.</p>
+                </div>
+            </div>
+
+            <!-- Video Carousel -->
+            <div class="pl-6 md:pl-12 pb-8">
+                <div class="flex overflow-x-auto hide-scrollbar gap-6 snap-x snap-mandatory" id="video-showcase-container">
+                    <!-- Videos injected via JS -->
+                </div>
+            </div>
+        </section>
+
+        <section class="py-16 bg-white border-b border-gray-100">
+            <div class="max-w-4xl mx-auto px-6 text-center reveal-up">
+                <div class="flex justify-center -space-x-4 mb-6">
+                    <img class="w-14 h-14 rounded-full border-4 border-white shadow-sm object-cover" src="https://images.unsplash.com/photo-1589571894960-20bbe2828d0a?auto=format&fit=crop&w=150&h=150" alt="Creator">
+                    <img class="w-14 h-14 rounded-full border-4 border-white shadow-sm object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&h=150" alt="Creator">
+                    <img class="w-14 h-14 rounded-full border-4 border-white shadow-sm object-cover" src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?auto=format&fit=crop&w=150&h=150" alt="Creator">
+                    <img class="w-14 h-14 rounded-full border-4 border-white shadow-sm object-cover" src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=150&h=150" alt="Creator">
+                    <img class="w-14 h-14 rounded-full border-4 border-white shadow-sm object-cover" src="https://images.unsplash.com/photo-1607503873903-c5e95f80d7b5?auto=format&fit=crop&w=150&h=150" alt="Creator">
+                    <div class="w-14 h-14 rounded-full border-4 border-white shadow-sm bg-gray-100 flex items-center justify-center text-xs font-bold text-gray-600">+</div>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-2">2.000+ KREATOR</h3>
+                <p class="text-gray-600">Lebih dari 2.000+ kreator menggunakan VOICE AUDIO PRO AI untuk kebutuhan konten mereka.</p>
+            </div>
+        </section>
+
+        <section class="py-24 bg-surface-light overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 mb-12 text-center reveal-up">
+                <h2 class="text-3xl md:text-4xl font-extrabold text-gray-900 tracking-tight mb-4">MEREKA SUDAH MENCOBA.<br><span class="text-brand-500">SEKARANG LIHAT PENGALAMANNYA.</span></h2>
+            </div>
+            
+            <!-- Testimonial Marquee Container -->
+            <div class="relative w-full overflow-hidden">
+                <div class="flex w-max gap-8 py-4 animate-marquee hover:[animation-play-state:paused]" id="testimonial-container">
+                    <!-- Images injected via JS, duplicated for infinite scroll -->
+                </div>
+            </div>
+        </section>
+
+        <section id="bonus" class="py-24 bg-gradient-to-br from-brand-900 to-gray-900 text-white relative overflow-hidden">
+            <!-- Decorative mesh -->
+            <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(#8b5cf6 1px, transparent 1px); background-size: 32px 32px;"></div>
+            
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="text-center mb-16 reveal-up">
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-500/20 text-brand-300 font-bold text-sm mb-6 border border-brand-500/30">
+                        <i class="ph-fill ph-gift"></i> BONUS EKSKLUSIF
+                    </span>
+                    <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6 leading-tight">
+                        VOICE SUDAH SIAP.<br>
+                        <span class="text-gray-400">SEKARANG, MAU BIKIN KONTEN APA?</span>
+                    </h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                        Kadang tantangan creator bukan hanya mencari voice. Tetapi juga mencari ide, menentukan hook, menyusun konsep, dan menyiapkan visual konten.<br><br>
+                        Karena itu, Voice Audio Pro AI dilengkapi bonus eksklusif <strong class="text-white">Creator Pro AI</strong>.
+                    </p>
+                </div>
+
+                <!-- Creator Pro AI Mockup -->
+                <div class="max-w-4xl mx-auto bg-gray-800 rounded-xl border border-gray-700 shadow-2xl overflow-hidden reveal-scale mb-16">
+                    <div class="bg-gray-900 px-4 py-3 flex items-center border-b border-gray-700">
+                        <div class="flex gap-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <div class="mx-auto text-xs font-semibold text-gray-400">CREATOR PRO AI INTERFACE</div>
+                    </div>
+                    <div class="p-8 flex flex-col items-center justify-center min-h-[300px] text-center bg-gradient-to-b from-gray-800 to-gray-900">
+                        <i class="ph-fill ph-magic-wand text-5xl text-brand-400 mb-4 animate-pulse"></i>
+                        <h3 class="text-2xl font-bold mb-2">Creator Pro AI Workspace</h3>
+                        <p class="text-sm text-gray-400">All-in-one assistant for your content creation workflow.</p>
+                    </div>
+                </div>
+
+                <!-- Features Asymmetric Layout -->
+                <div class="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto reveal-up">
+                    <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/10 md:col-span-2">
+                        <i class="ph ph-lightbulb text-3xl text-yellow-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">IDE KONTEN</h4>
+                        <p class="text-sm text-gray-300">Membantu menemukan ide konten berdasarkan kebutuhan dan tren saat ini.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/10">
+                        <i class="ph ph-fish-hook text-3xl text-red-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">HOOK</h4>
+                        <p class="text-sm text-gray-300">Membantu menentukan pembuka konten yang menghentikan scroll.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/10">
+                        <i class="ph ph-list-numbers text-3xl text-cyan-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">CONTENT PLAN</h4>
+                        <p class="text-sm text-gray-300">Membantu mengembangkan ide menjadi konsep yang matang.</p>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/10 md:col-span-2">
+                        <i class="ph ph-image text-3xl text-green-400 mb-4"></i>
+                        <h4 class="font-bold text-xl mb-2">THUMBNAIL & WORKFLOW</h4>
+                        <p class="text-sm text-gray-300">Membantu menyiapkan kebutuhan visual awal dan membuat proses kreatif lebih terarah dari awal hingga akhir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="offer" class="py-24 bg-white">
+            <div class="max-w-4xl mx-auto px-6 text-center">
+                <div class="reveal-up mb-12">
+                    <h2 class="text-3xl font-extrabold text-gray-900 tracking-tight mb-2">DUA TOOLS.<br>SATU PAKET CREATOR.</h2>
+                </div>
+
+                <div class="bg-surface-light rounded-[3rem] p-8 md:p-12 border border-brand-100 shadow-premium relative reveal-scale">
+                    <!-- Value breakdown -->
+                    <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 mb-8 text-left">
+                        <div>
+                            <p class="font-bold text-gray-900 text-lg mb-1">VOICE AUDIO PRO AI</p>
+                            <p class="text-sm text-gray-500">Harga normal: <span class="line-through">Rp199.000</span></p>
+                        </div>
+                        <div class="text-2xl text-gray-300 font-light">+</div>
+                        <div>
+                            <p class="font-bold text-brand-600 text-lg mb-1">CREATOR PRO AI</p>
+                            <span class="inline-block px-2 py-0.5 bg-brand-100 text-brand-700 text-[10px] font-bold rounded mb-1">BONUS EKSKLUSIF</span>
+                            <p class="text-sm text-gray-500">Nilai bonus: Rp250.000</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full h-px bg-gray-200 my-8"></div>
+
+                    <p class="text-sm font-bold text-gray-400 tracking-widest mb-2">TOTAL NILAI: <span class="line-through text-gray-500">Rp449.000</span></p>
+                    
+                    <div class="inline-block bg-brand-50 rounded-2xl px-8 py-4 mb-8 border border-brand-200">
+                        <p class="text-xs font-bold text-brand-600 tracking-widest mb-2">PENAWARAN SAAT INI</p>
+                        <p class="text-5xl md:text-6xl font-black text-gray-900 tracking-tighter">Rp99.000</p>
+                    </div>
+
+                    <div class="flex justify-center text-yellow-400 text-lg mb-2">
+                        <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                    </div>
+                    <p class="text-xs font-bold text-gray-600 mb-8">2000+ ORANG SUDAH MENDAPATKAN AKSES</p>
+
+                    <a href="javascript:void(0)" onclick="goToCheckout()" class="inline-flex items-center justify-center gap-2 px-10 py-5 w-full md:w-auto rounded-full bg-brand-600 text-white text-lg font-bold hover:bg-brand-700 transition-all shadow-xl shadow-brand-500/40 transform hover:-translate-y-1">
+                        🚀 BELI SEKARANG
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section id="faq" class="py-24 bg-surface-light border-y border-gray-100">
+            <div class="max-w-3xl mx-auto px-6">
+                <div class="text-center mb-16 reveal-up">
+                    <span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-100 text-green-700 text-xs font-bold mb-4">
+                        <i class="ph-fill ph-shield-check"></i> KEPUASAN & SUPPORT
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-gray-900 mb-4">BELI DENGAN LEBIH TENANG.</h2>
+                    <p class="text-gray-600">Setelah pembelian, kamu mendapatkan akses sesuai paket yang dipilih, panduan penggunaan, dan support ketika membutuhkan bantuan.</p>
+                    <div class="flex flex-wrap justify-center gap-4 mt-6 text-sm font-medium text-gray-700">
+                        <span class="flex items-center gap-1"><i class="ph-fill ph-check-circle text-green-500"></i> Akses produk</span>
+                        <span class="flex items-center gap-1"><i class="ph-fill ph-check-circle text-green-500"></i> Panduan penggunaan</span>
+                        <span class="flex items-center gap-1"><i class="ph-fill ph-check-circle text-green-500"></i> Support</span>
+                        <span class="flex items-center gap-1"><i class="ph-fill ph-check-circle text-green-500"></i> Bantuan kendala akses</span>
+                    </div>
+                </div>
+
+                <div class="mt-16 reveal-up">
+                    <h3 class="text-2xl font-bold text-center text-gray-900 mb-8">MASIH PUNYA PERTANYAAN?</h3>
+                    <div class="space-y-4" id="faq-container">
+                        <!-- FAQs injected via JS -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 bg-gray-900 text-center text-white relative overflow-hidden">
+             <!-- Background Blob -->
+             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-[800px] bg-brand-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+             
+            <div class="max-w-2xl mx-auto px-6 relative z-10 reveal-up">
+                <h2 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-6">
+                    BUAT KONTENMU<br>TERDENGAR SEPERTI<br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-400 to-cyan-400">YANG KAMU BAYANGKAN.</span>
+                </h2>
+                <p class="text-gray-400 mb-12">Voice yang tepat dapat membantu sebuah pesan terasa lebih hidup. Mulai dari affiliate, product video, promosi, hingga storytelling.</p>
+                
+                <div class="bg-white/10 backdrop-blur-md rounded-3xl p-8 border border-white/10 mb-8 inline-block text-left mx-auto w-full max-w-md">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="font-bold text-white">VOICE AUDIO PRO AI</span>
+                    </div>
+                    <div class="flex justify-between items-center mb-4 pb-4 border-b border-white/10">
+                        <span class="font-bold text-brand-400 text-sm">+ CREATOR PRO AI (BONUS)</span>
+                    </div>
+                    <div class="flex justify-between items-end">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-1">TOTAL NILAI: <span class="line-through">Rp449.000</span></p>
+                            <p class="text-xs text-brand-300 font-bold">PENAWARAN:</p>
+                        </div>
+                        <div class="text-4xl font-black">Rp99.000</div>
+                    </div>
+                </div>
+
+                <div class="flex justify-center text-yellow-400 text-lg mb-2">
+                    <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+                </div>
+                <p class="text-xs font-bold text-gray-400 mb-8">2000+ ORANG SUDAH MENDAPATKAN AKSES</p>
+
+                <a href="javascript:void(0)" onclick="goToCheckout()" class="inline-flex items-center justify-center gap-2 px-10 py-5 w-full sm:w-auto rounded-full bg-brand-500 text-white text-lg font-bold hover:bg-brand-400 transition-all shadow-xl shadow-brand-500/40">
+                    🚀 BELI SEKARANG
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="py-12 bg-white border-t border-gray-100 text-center px-6">
+        <h4 class="font-bold text-gray-900 tracking-tight mb-1">VOICE AUDIO PRO AI</h4>
+        <p class="text-xs text-gray-500 tracking-widest mb-6">CONTENT CREATOR VOICE SUITE</p>
+        <div class="flex justify-center gap-6 mb-8">
+            <a href="#faq" class="text-sm font-medium text-gray-600 hover:text-brand-600">Support</a>
+            <a href="#faq" class="text-sm font-medium text-gray-600 hover:text-brand-600">FAQ</a>
+            <a href="javascript:void(0)" onclick="goToCheckout()" class="text-sm font-medium text-brand-600 hover:text-brand-800">Beli Sekarang</a>
+        </div>
+        <p class="text-xs text-gray-400">© 2026 Voice Audio Pro AI</p>
+    </footer>
+
+    <!-- Mobile Sticky CTA (Hidden initially) -->
+    <div id="sticky-cta" class="fixed bottom-0 left-0 w-full z-40 transform translate-y-full transition-transform duration-300 md:hidden pb-safe">
+        <div class="bg-white/90 backdrop-blur-md shadow-[0_-10px_40px_rgba(0,0,0,0.1)] rounded-t-3xl border-t border-gray-100 p-4 pb-6">
+            <div class="flex justify-between items-center">
+                <div>
+                    <p class="text-xs font-bold text-gray-500 leading-none mb-1">VOICE AUDIO PRO AI</p>
+                    <p class="text-xl font-black text-gray-900">Rp99.000</p>
+                </div>
+                <a href="javascript:void(0)" onclick="goToCheckout()" class="px-6 py-3 rounded-full bg-brand-600 text-white font-bold shadow-lg shadow-brand-500/30 text-sm">
+                    BELI SEKARANG
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Purchase Notification Popup -->
+    <div id="purchase-notification" class="fixed top-24 right-4 sm:right-6 z-50 transform translate-x-[120%] transition-transform duration-500 bg-white rounded-2xl p-4 shadow-premium border border-gray-100 flex items-start gap-3 w-72">
+        <div class="w-10 h-10 rounded-full bg-brand-100 flex items-center justify-center shrink-0">
+            <i class="ph-fill ph-check-circle text-brand-500 text-xl"></i>
+        </div>
+        <div>
+            <div class="flex text-yellow-400 text-[10px] mb-1">
+                <i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i><i class="ph-fill ph-star"></i>
+            </div>
+            <p class="text-sm text-gray-800 mb-0.5"><span id="notify-name" class="font-bold">Budi***</span> baru saja mendapatkan akses</p>
+            <p class="text-xs font-semibold text-brand-600">Voice Audio Pro AI</p>
+        </div>
+    </div>
+
+    <script>
+        // ==================================================
+        // CONFIGURATION & STATE
+        // ==================================================
+        const CONFIG = {
+            CHECKOUT_URL: "https://voiceproai.orderhero.id/form/form-order-voice-audio-proai",
+            
+            // FULL YouTube URL format untuk demonstrasi sistem parsing otomatis
+            YOUTUBE_VIDEOS: {
+                BEFORE: "https://youtube.com/shorts/l4x1_W1Dw-o?feature=share",
+                AFTER: "https://www.youtube.com/shorts/5-TfTpV9YDU",
+                SHOWCASE: [
+                    "https://youtube.com/shorts/4wJLHfgQIro",
+                    "https://www.youtube.com/shorts/JnNJ6vbyCZA",
+                    "https://youtu.be/JPys66SVLdE", // Tes variasi URL youtu.be
+                    "https://www.youtube.com/watch?v=0DwoGl1sa88", // Tes variasi URL standard
+                    "P3sm7-na8cM" // Tes variasi raw ID
+                ]
+            },
+            AUDIO_ASSETS: [
+                { id: 'v1', title: 'NATURAL VOICE', subtitle: 'Voice perempuan karakter natural.', url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790158690/2a3d5271-8f94-4572-93d6-0a86b7b401d4.wav', icon: 'ph-leaf' },
+                { id: 'v2', title: 'PRODUCT COMMERCIAL', subtitle: 'Voice perempuan untuk promosi.', url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790158690/c39799f8-e1ee-43e7-8f62-43e9691bb01e.wav', icon: 'ph-shopping-bag' },
+                { id: 'v3', title: 'STORYTELLING', subtitle: 'Voice laki-laki karakter storytelling.', url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790158689/VoicePro_Rasalgethi_1790157494996.wav', icon: 'ph-book-open' },
+                { id: 'v4', title: 'WHISPER', subtitle: 'Voice perempuan karakter whisper.', url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790158690/02abe631-5c6c-45c4-a3fc-aed053fe6528.wav', icon: 'ph-wind' }
+            ],
+            MULTILINGUAL_AUDIO: {
+                english: { url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790167655/English_model.wav', title: 'English AI Voice' },
+                japanese: { url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790167655/japan_model.wav', title: 'Japanese AI Voice' },
+                korean: { url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790167654/Audio_Korea_style.wav', title: 'Korean AI Voice' },
+                spanish: { url: 'https://res.cloudinary.com/mffe56m7/video/upload/v1790167656/spain_model.wav', title: 'Spanish AI Voice' }
+            },
+            TESTIMONIAL_IMAGES: [
+                "https://i.ibb.co.com/KzW6fvYG/instagram-message-1.png",
+                "https://i.ibb.co.com/3y8DmVcY/whatsapp-chat.png",
+                "https://i.ibb.co.com/4nKqKGjx/whatsapp-chat-1.png",
+                "https://i.ibb.co.com/fGK6F3NN/whatsapp-chat-3.png",
+                "https://i.ibb.co.com/84gKqRfF/whatsapp-chat-4.png"
+            ],
+            FAQS: [
+                { q: "Apakah Voice Audio Pro AI cocok untuk creator pemula?", a: "Sangat cocok. Antarmuka kami dirancang agar mudah digunakan oleh siapa saja tanpa perlu kemampuan teknis khusus." },
+                { q: "Apakah cocok untuk konten affiliate?", a: "Ya, kami memiliki karakter suara khusus yang dirancang untuk review produk dan promosi affiliate." },
+                { q: "Bahasa apa saja yang tersedia?", a: "Selain Bahasa Indonesia, tersedia juga English, Japanese, Korean, dan Spanish." },
+                { q: "Apa saja voice yang tersedia?", a: "Terdapat puluhan karakter suara termasuk Natural, Storytelling, Promo, Whisper, dan banyak lagi." },
+                { q: "Apa yang saya dapatkan setelah membeli?", a: "Akses penuh ke platform Voice Audio Pro AI sesuai paket, Bonus Creator Pro AI, panduan, dan dukungan pelanggan." },
+                { q: "Apa itu Creator Pro AI?", a: "Bonus software untuk membantu menyusun ide konten, hook, content plan, dan alur kerja creator Anda." },
+                { q: "Bagaimana proses pembelian?", a: "Klik tombol Beli Sekarang, isi form di halaman OrderHero, selesaikan pembayaran, dan akses akan langsung dikirim." },
+                { q: "Bagaimana cara mendapatkan akses?", a: "Detail login akan dikirimkan ke email yang Anda gunakan saat mendaftar setelah pembayaran terkonfirmasi." },
+                { q: "Apakah tersedia support?", a: "Ya, tim support kami siap membantu jika Anda mengalami kendala teknis atau pertanyaan seputar penggunaan." }
+            ]
+        };
+
+        // Global State for Audio
+        let currentPlayingAudio = null;
+        let currentPlayingBtn = null;
+        let currentPlayingPlayerId = null;
+
+        // Helper: Format Time
+        function formatTime(seconds) {
+            if (isNaN(seconds)) return "0:00";
+            const min = Math.floor(seconds / 60);
+            const sec = Math.floor(seconds % 60);
+            return `${min}:${sec.toString().padStart(2, '0')}`;
+        }
+
+        // Helper: Extract valid YouTube Video ID from any URL string (Shorts, Regular, or raw ID)
+        function getYouTubeEmbedUrl(urlOrId) {
+            let videoId = urlOrId;
+            try {
+                // Check if string is a URL
+                if (urlOrId.includes('http://') || urlOrId.includes('https://')) {
+                    const urlObj = new URL(urlOrId);
+                    
+                    // Handle youtube.com/shorts/...
+                    if (urlObj.pathname.includes('/shorts/')) {
+                        videoId = urlObj.pathname.split('/shorts/')[1].split('?')[0];
+                    } 
+                    // Handle youtu.be/...
+                    else if (urlObj.hostname.includes('youtu.be')) {
+                        videoId = urlObj.pathname.slice(1).split('?')[0];
+                    } 
+                    // Handle youtube.com/watch?v=...
+                    else if (urlObj.searchParams.has('v')) {
+                        videoId = urlObj.searchParams.get('v');
+                    }
+                }
+            } catch (error) {
+                console.warn('Invalid URL format, treating as raw ID:', error);
+                // Fallback implicitly uses urlOrId as videoId
+            }
+            
+            // Return standardized embed URL
+            return `https://www.youtube.com/embed/${videoId}?rel=0`;
+        }
+
+        // Action: Go to Checkout
+        window.goToCheckout = function() {
+            window.location.href = CONFIG.CHECKOUT_URL;
+        }
+
+        // ==================================================
+        // INITIALIZATION & RENDER FUNCTIONS
+        // ==================================================
+        document.addEventListener('DOMContentLoaded', () => {
+            initMobileMenu();
+            initYouTubeEmbeds();
+            renderAudioPlayers();
+            renderMultilingualPlayer();
+            renderVideoShowcase();
+            renderTestimonials();
+            renderFAQs();
+            initScrollAnimations();
+            initStickyCTA();
+            initPurchaseNotifications();
+            initStatsCounter();
+        });
+
+        function initMobileMenu() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const nav = document.getElementById('mobileNav');
+            btn.addEventListener('click', () => nav.classList.toggle('hidden'));
+        }
+
+        function initYouTubeEmbeds() {
+            // Updated to use the smart URL parser
+            const createIframe = (urlOrId) => {
+                const finalUrl = getYouTubeEmbedUrl(urlOrId);
+                return `<iframe src="${finalUrl}" class="absolute top-0 left-0 w-full h-full object-cover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>`;
+            };
+            
+            document.getElementById('before-video-container').innerHTML = createIframe(CONFIG.YOUTUBE_VIDEOS.BEFORE);
+            document.getElementById('after-video-container').innerHTML = createIframe(CONFIG.YOUTUBE_VIDEOS.AFTER);
+        }
+
+        function renderVideoShowcase() {
+            const container = document.getElementById('video-showcase-container');
+            let html = '';
+            CONFIG.YOUTUBE_VIDEOS.SHOWCASE.forEach(urlOrId => {
+                const finalUrl = getYouTubeEmbedUrl(urlOrId);
+                html += `
+                <div class="shrink-0 w-[280px] sm:w-[320px] snap-center">
+                    <div class="relative w-full aspect-[9/16] rounded-3xl overflow-hidden bg-gray-800 shadow-xl border border-gray-700">
+                        <iframe src="${finalUrl}" class="absolute top-0 left-0 w-full h-full object-cover" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+                    </div>
+                </div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderTestimonials() {
+            const container = document.getElementById('testimonial-container');
+            const imgsHTML = CONFIG.TESTIMONIAL_IMAGES.map(url => 
+                `<img src="${url}" class="h-[28rem] md:h-[35rem] lg:h-[40rem] w-auto object-contain rounded-3xl shadow-xl border border-gray-100 bg-white p-3" alt="Testimonial" loading="lazy">`
+            ).join('');
+            // Double it for smooth infinite marquee
+            container.innerHTML = imgsHTML + imgsHTML;
+        }
+
+        function renderFAQs() {
+            const container = document.getElementById('faq-container');
+            let html = '';
+            CONFIG.FAQS.forEach((faq, index) => {
+                html += `
+                <details class="group bg-white rounded-2xl border border-gray-200 overflow-hidden [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex cursor-pointer items-center justify-between gap-1.5 p-5 text-gray-900 font-semibold">
+                        ${faq.q}
+                        <span class="relative size-5 shrink-0">
+                            <svg class="absolute inset-0 size-5 opacity-100 group-open:opacity-0 transition-opacity" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+                            <svg class="absolute inset-0 size-5 opacity-0 group-open:opacity-100 transition-opacity" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 12h-15" /></svg>
+                        </span>
+                    </summary>
+                    <p class="px-5 pb-5 text-gray-600 text-sm leading-relaxed">${faq.a}</p>
+                </details>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function createAudioPlayerHTML(playerData, isMultilingual = false) {
+            const pid = `player-${playerData.id || playerData.lang}`;
+            
+            // Dummy bars for visual waveform
+            const bars = Array.from({length: 24}).map(() => `<div class="wave-bar h-full bg-gray-200"></div>`).join('');
+
+            return `
+            <div class="bg-white rounded-3xl p-5 border border-gray-200 shadow-sm hover:shadow-premium transition-all relative overflow-hidden group" id="${pid}">
+                <div class="flex items-start gap-4 mb-4">
+                    <button class="w-12 h-12 shrink-0 rounded-full bg-brand-50 text-brand-600 flex items-center justify-center hover:bg-brand-600 hover:text-white transition-colors play-btn" data-url="${playerData.url}" data-pid="${pid}">
+                        <i class="ph-fill ph-play text-xl play-icon"></i>
+                        <i class="ph-fill ph-pause text-xl hidden pause-icon"></i>
+                    </button>
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                            ${playerData.title}
+                            ${!isMultilingual ? `<i class="ph-fill ${playerData.icon} text-brand-500"></i>` : ''}
+                        </h3>
+                        ${playerData.subtitle ? `<p class="text-xs text-gray-500 mt-0.5">${playerData.subtitle}</p>` : ''}
+                    </div>
+                </div>
+                
+                <!-- Waveform Vis -->
+                <div class="h-8 flex items-end justify-between gap-0.5 mb-3 px-1 waveform-container opacity-50 transition-opacity group-hover:opacity-100">
+                    ${bars}
+                </div>
+
+                <div class="flex items-center gap-3">
+                    <span class="text-[10px] font-medium text-gray-400 current-time">0:00</span>
+                    <input type="range" class="progress-bar flex-1" value="0" min="0" max="100" step="0.1">
+                    <span class="text-[10px] font-medium text-gray-400 duration-time">--:--</span>
+                </div>
+            </div>`;
+        }
+
+        function setupAudioLogic(containerId) {
+            const container = document.getElementById(containerId);
+            const playBtns = container.querySelectorAll('.play-btn');
+
+            playBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const url = this.getAttribute('data-url');
+                    const pid = this.getAttribute('data-pid');
+                    const playerContainer = document.getElementById(pid);
+                    const playIcon = this.querySelector('.play-icon');
+                    const pauseIcon = this.querySelector('.pause-icon');
+                    const waveform = playerContainer.querySelector('.waveform-container');
+                    const progressBar = playerContainer.querySelector('.progress-bar');
+                    const timeEl = playerContainer.querySelector('.current-time');
+                    const durationEl = playerContainer.querySelector('.duration-time');
+
+                    // If clicking the same button that is playing
+                    if (currentPlayingBtn === this && currentPlayingAudio) {
+                        if (currentPlayingAudio.paused) {
+                            currentPlayingAudio.play();
+                        } else {
+                            currentPlayingAudio.pause();
+                        }
+                        return;
+                    }
+
+                    // Stop current if different
+                    if (currentPlayingAudio) {
+                        currentPlayingAudio.pause();
+                        // Reset UI of previous
+                        if (currentPlayingBtn) {
+                            currentPlayingBtn.querySelector('.play-icon').classList.remove('hidden');
+                            currentPlayingBtn.querySelector('.pause-icon').classList.add('hidden');
+                            document.getElementById(currentPlayingPlayerId).querySelector('.waveform-container').classList.remove('playing');
+                        }
+                    }
+
+                    // Setup new audio
+                    currentPlayingAudio = new Audio(url);
+                    currentPlayingBtn = this;
+                    currentPlayingPlayerId = pid;
+
+                    currentPlayingAudio.addEventListener('loadedmetadata', () => {
+                        durationEl.textContent = formatTime(currentPlayingAudio.duration);
+                        progressBar.max = currentPlayingAudio.duration;
+                    });
+
+                    currentPlayingAudio.addEventListener('timeupdate', () => {
+                        timeEl.textContent = formatTime(currentPlayingAudio.currentTime);
+                        if (!progressBar.matches(':active')) {
+                            progressBar.value = currentPlayingAudio.currentTime;
+                        }
+                    });
+
+                    progressBar.addEventListener('input', (e) => {
+                        if (currentPlayingAudio) {
+                            currentPlayingAudio.currentTime = e.target.value;
+                        }
+                    });
+
+                    currentPlayingAudio.addEventListener('play', () => {
+                        playIcon.classList.add('hidden');
+                        pauseIcon.classList.remove('hidden');
+                        waveform.classList.add('playing');
+                    });
+
+                    currentPlayingAudio.addEventListener('pause', () => {
+                        playIcon.classList.remove('hidden');
+                        pauseIcon.classList.add('hidden');
+                        waveform.classList.remove('playing');
+                    });
+
+                    currentPlayingAudio.addEventListener('ended', () => {
+                        playIcon.classList.remove('hidden');
+                        pauseIcon.classList.add('hidden');
+                        waveform.classList.remove('playing');
+                        progressBar.value = 0;
+                        timeEl.textContent = "0:00";
+                        currentPlayingAudio = null;
+                        currentPlayingBtn = null;
+                    });
+
+                    currentPlayingAudio.play().catch(e => console.error("Audio play failed:", e));
+                });
+            });
+        }
+
+        function renderAudioPlayers() {
+            const container = document.getElementById('main-audio-container');
+            let html = '';
+            CONFIG.AUDIO_ASSETS.forEach(audio => {
+                html += createAudioPlayerHTML(audio);
+            });
+            container.innerHTML = html;
+            setupAudioLogic('main-audio-container');
+        }
+
+        function renderMultilingualPlayer() {
+            const container = document.getElementById('multilingual-audio-container');
+            const tabs = document.querySelectorAll('.lang-tab');
+            
+            // Initial render
+            const initialLang = 'english';
+            const initialData = { ...CONFIG.MULTILINGUAL_AUDIO[initialLang], id: 'multi', lang: initialLang };
+            container.innerHTML = createAudioPlayerHTML(initialData, true);
+            setupAudioLogic('multilingual-audio-container');
+
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab styling
+                    tabs.forEach(t => {
+                        t.classList.remove('active', 'bg-white', 'shadow-sm', 'text-brand-600');
+                        t.classList.add('text-gray-500');
+                    });
+                    this.classList.remove('text-gray-500');
+                    this.classList.add('active', 'bg-white', 'shadow-sm', 'text-brand-600');
+
+                    // Stop current playing if any
+                    if (currentPlayingAudio) {
+                        currentPlayingAudio.pause();
+                        currentPlayingAudio = null;
+                        currentPlayingBtn = null;
+                    }
+
+                    // Render new player
+                    const lang = this.getAttribute('data-lang');
+                    const data = { ...CONFIG.MULTILINGUAL_AUDIO[lang], id: 'multi', lang: lang };
+                    container.innerHTML = createAudioPlayerHTML(data, true);
+                    setupAudioLogic('multilingual-audio-container');
+                });
+            });
+        }
+
+        function initScrollAnimations() {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                        // Optional: unobserve after animation
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal-up, .reveal-scale').forEach(el => {
+                observer.observe(el);
+            });
+        }
+
+        function initStickyCTA() {
+            const stickyCta = document.getElementById('sticky-cta');
+            const offerSection = document.getElementById('offer');
+            
+            if (!offerSection || !stickyCta) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                const offerRect = offerSection.getBoundingClientRect();
+                
+                if (offerRect.top < window.innerHeight) {
+                    stickyCta.classList.remove('translate-y-full');
+                } else {
+                    stickyCta.classList.add('translate-y-full');
+                }
+            }, { threshold: [0, 0.1, 0.5, 1] });
+
+            window.addEventListener('scroll', () => {
+                const offerRect = offerSection.getBoundingClientRect();
+                if (offerRect.top < window.innerHeight) {
+                    stickyCta.classList.remove('translate-y-full');
+                } else {
+                    stickyCta.classList.add('translate-y-full');
+                }
+            }, { passive: true });
+        }
+
+        function initPurchaseNotifications() {
+            const names = ["Budi***", "Siti***", "Andi***", "Dewi***", "Rizk***", "Putr***", "Agus***", "Ayu***"];
+            const notif = document.getElementById('purchase-notification');
+            const nameEl = document.getElementById('notify-name');
+
+            function showNotification() {
+                const randomName = names[Math.floor(Math.random() * names.length)];
+                nameEl.textContent = randomName;
+                notif.classList.remove('translate-x-[120%]');
+                
+                setTimeout(() => {
+                    notif.classList.add('translate-x-[120%]');
+                }, 5000); // Show for 5s
+            }
+
+            // Initial delay, then interval
+            setTimeout(() => {
+                showNotification();
+                setInterval(showNotification, 15000); // Every 15s
+            }, 8000);
+        }
+
+        function initStatsCounter() {
+            const stats = document.querySelectorAll('.stat-number');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const target = entry.target;
+                        const endValue = parseInt(target.getAttribute('data-target'));
+                        const duration = 2000;
+                        let startTimestamp = null;
+                        
+                        const step = (timestamp) => {
+                            if (!startTimestamp) startTimestamp = timestamp;
+                            const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                            // easeOutQuart
+                            const ease = 1 - Math.pow(1 - progress, 4);
+                            const current = Math.floor(ease * endValue);
+                            
+                            target.textContent = current.toLocaleString('id-ID');
+                            
+                            if (progress < 1) {
+                                window.requestAnimationFrame(step);
+                            } else {
+                                target.textContent = endValue.toLocaleString('id-ID');
+                            }
+                        };
+                        window.requestAnimationFrame(step);
+                        observer.unobserve(target); // Only animate once
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            stats.forEach(stat => observer.observe(stat));
+        }
+
+    </script>
+</body>
+</html>
