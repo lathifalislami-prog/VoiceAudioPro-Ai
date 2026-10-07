@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terima Kasih! Pembayaran Berhasil | Orderhero</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- a) Meta Pixel (Event: Purchase) -->
+  <script>
+  !function(f,b,e,v,n,t,s)
+  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+  n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];
+  s.parentNode.insertBefore(t,s)}(window, document,'script',
+  'https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', '1672205417903686');
+  fbq('track', 'PageView');
+  fbq('track', 'Purchase');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1672205417903686&ev=PageView&noscript=1"/></noscript>
+
+  <!-- b) TikTok Pixel (Event: CompletePayment) -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+  var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+  ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    ttq.load('DB16O2RC77UFPOQ9N2P0');
+    ttq.page();
+    ttq.track('CompletePayment');
+  }(window, document, 'ttq');
+  </script>
+
+  <!-- c) Google Analytics GA4 (Event: purchase) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-TMW14R8Y1Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-TMW14R8Y1Y');
+    gtag('event', 'purchase');
+  </script>
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          animation: {
+            'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            'float': 'float 4s ease-in-out infinite',
+            'glow': 'glow 2s opacity infinite alternate',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0px)' },
+              '50%': { transform: 'translateY(-8px)' },
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #020617;
+    }
+    .gradient-glow {
+      background: radial-gradient(circle, rgba(6,182,212,0.18) 0%, rgba(37,99,235,0.05) 50%, rgba(2,6,23,0) 70%);
+    }
+    .glass-card {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between relative overflow-x-hidden selection:bg-cyan-500 selection:text-white">
+
+  <!-- Ambient Background Blur FX -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <div class="absolute -top-40 -left-40 w-96 h-96 bg-cyan-500/20 rounded-full blur-[128px]"></div>
+    <div class="absolute top-1/3 -right-40 w-96 h-96 bg-blue-600/20 rounded-full blur-[128px]"></div>
+    <div class="absolute -bottom-20 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-teal-500/10 rounded-full blur-[140px]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:24px_24px] opacity-25"></div>
+  </div>
+
+  <!-- Header Branding -->
+  <header class="relative z-10 w-full pt-6 pb-2 px-4">
+    <div class="max-w-4xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2">
+        <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+        </div>
+        <span class="font-extrabold text-xl tracking-tight text-white">VoiceAudiopro<span class="text-cyan-400">ai</span></span>
+      </div>
+      <div class="flex items-center space-x-2 bg-slate-900/80 border border-slate-800 rounded-full px-3.5 py-1.5 text-xs font-medium text-slate-300">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Sistem Akses Otomatis</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 my-auto py-8 px-4 sm:px-6">
+    <div class="max-w-2xl mx-auto">
+      
+      <!-- Glassmorphic Main Card -->
+      <div class="glass-card rounded-3xl p-6 sm:p-10 shadow-2xl relative overflow-hidden">
+        
+        <!-- Top Accent Border -->
+        <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-teal-400 to-blue-600"></div>
+
+        <!-- Success Animated Badge -->
+        <div class="flex justify-center mb-6">
+          <div class="relative">
+            <!-- Pulsing Ring -->
+            <div class="absolute inset-0 rounded-full bg-cyan-500/30 animate-ping opacity-75"></div>
+            <!-- Outer Glow Circle -->
+            <div class="relative w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-slate-900 border-2 border-cyan-400/40 flex items-center justify-center shadow-[0_0_30px_rgba(6,182,212,0.3)]">
+              <!-- Inner Gradient Icon Holder -->
+              <div class="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-gradient-to-tr from-cyan-500 to-teal-400 flex items-center justify-center text-slate-950 shadow-inner">
+                <svg class="w-8 h-8 sm:w-9 sm:h-9 stroke-current" fill="none" viewBox="0 0 24 24" stroke-width="3">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Header Text -->
+        <div class="text-center space-y-3 mb-8">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold tracking-wide uppercase">
+            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+            </svg>
+            Transaksi Terverifikasi
+          </div>
+          
+          <h1 class="text-2xl sm:text-4xl font-extrabold text-white tracking-tight leading-tight">
+            Terima Kasih! Pembayaran Berhasil 🎉
+          </h1>
+          
+          <p class="text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+            Pembayaran kamu telah kami terima. Akses ke produk digital milikmu sudah diaktifkan dan siap diunduh sekarang.
+          </p>
+        </div>
+
+        <!-- Primary Action Box (Google Drive CTA) -->
+        <div class="space-y-4 mb-8">
+          <a href="https://drive.google.com/drive/folders/1sdhO7KTlOi48ljJtq9vRV4VasEyqDcpc" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             class="group relative w-full flex items-center justify-center gap-3 px-8 py-4 sm:py-4.5 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-400 to-blue-600 text-slate-950 font-bold text-base sm:text-lg shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.01] active:scale-[0.99] transition-all duration-200">
+            <!-- Icon Google Drive / Download -->
+            <svg class="w-6 h-6 stroke-current transition-transform group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke-width="2.5">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+            </svg>
+            <span>Buka & Download Produk (Google Drive)</span>
+            <svg class="w-5 h-5 opacity-70 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"/>
+            </svg>
+          </a>
+
+          <!-- Quick Copy Drive Link Secondary Button -->
+          <button id="copyBtn" onclick="copyDriveLink()" class="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-slate-700/60 text-xs sm:text-sm text-slate-300 hover:text-white transition-colors duration-150">
+            <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            <span id="copyText">Salin URL Akses Google Drive</span>
+          </button>
+        </div>
+
+        <!-- Mandatory Information Notice Box -->
+        <div class="rounded-2xl bg-slate-900/90 border-l-4 border-cyan-400 p-4 sm:p-5 relative overflow-hidden shadow-md">
+          <div class="flex items-start gap-3.5">
+            <div class="p-1.5 bg-cyan-500/10 rounded-lg text-cyan-400 shrink-0 mt-0.5">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <div class="space-y-1">
+              <p class="text-xs font-bold text-cyan-300 uppercase tracking-wider">Petunjuk Akses Penting</p>
+              <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                Silakan bookmark halaman ini atau link Google Drive di atas agar akses kamu tidak hilang. Salinan akses juga sudah dikirimkan otomatis ke email kamu dari Orderhero.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3 Quick Steps Guide -->
+        <div class="mt-8 pt-6 border-t border-slate-800/80">
+          <h2 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4 text-center">3 Langkah Mudah Mengakses Produk:</h2>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="bg-slate-900/50 rounded-xl p-3.5 border border-slate-800 text-center">
+              <span class="w-6 h-6 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-500/30 text-xs font-bold inline-flex items-center justify-center mb-2">1</span>
+              <p class="text-xs text-slate-300 font-medium">Klik Tombol Akses</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Buka link Google Drive resmi di atas</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-xl p-3.5 border border-slate-800 text-center">
+              <span class="w-6 h-6 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-500/30 text-xs font-bold inline-flex items-center justify-center mb-2">2</span>
+              <p class="text-xs text-slate-300 font-medium">Download / Simpan</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Simpan file ke Drive atau laptop/HP kamu</p>
+            </div>
+            <div class="bg-slate-900/50 rounded-xl p-3.5 border border-slate-800 text-center">
+              <span class="w-6 h-6 rounded-full bg-cyan-950 text-cyan-400 border border-cyan-500/30 text-xs font-bold inline-flex items-center justify-center mb-2">3</span>
+              <p class="text-xs text-slate-300 font-medium">Cek Inbox Email</p>
+              <p class="text-[11px] text-slate-400 mt-0.5">Periksa pesan dari Orderhero untuk lisensi</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Need Help Support Card -->
+      <div class="mt-6 text-center space-y-2">
+        <p class="text-xs text-slate-400">
+          Mengalami kendala saat mengunduh? Tim Support siap membantu 24/7.
+        </p>
+        <div class="inline-flex items-center gap-2">
+          <a href="https://wa.me/6281236139270" target="_blank" rel="noopener noreferrer" class="text-xs font-semibold text-cyan-400 hover:text-cyan-300 transition-colors inline-flex items-center gap-1">
+            <span>Pusat Bantuan Tim Support Voice Audio Pro AI</span>
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="relative z-10 w-full py-6 border-t border-slate-900 bg-slate-950/80 backdrop-blur-md">
+    <div class="max-w-4xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
+      <div class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+        </svg>
+        <span>Keamanan Terjamin • 256-Bit SSL Encrypted Connection</span>
+      </div>
+      <p>© voiceaudioproai.my.id – Seluruh hak cipta dilindungi undang-undang.</p>
+    </div>
+  </footer>
+
+  <!-- Notification Toast UI -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="bg-slate-900 border border-cyan-500/40 text-cyan-300 px-4 py-3 rounded-xl shadow-xl flex items-center gap-2 text-xs font-semibold">
+      <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+      </svg>
+      <span>Link Google Drive berhasil disalin ke clipboard!</span>
+    </div>
+  </div>
+
+  <script>
+    function copyDriveLink() {
+      const driveUrl = "https://drive.google.com/drive/folders/1sdhO7KTlOi48ljJtq9vRV4VasEyqDcpc";
+      
+      // Copy functionality compliant with iframe restrictions
+      const dummyInput = document.createElement('input');
+      document.body.appendChild(dummyInput);
+      dummyInput.value = driveUrl;
+      dummyInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummyInput);
+
+      // UI Text Feedback
+      const copyText = document.getElementById('copyText');
+      const originalText = copyText.innerText;
+      copyText.innerText = "Berhasil Disalin! ✓";
+      
+      // Toast notification
+      const toast = document.getElementById('toast');
+      toast.classList.remove('translate-y-20', 'opacity-0');
+      
+      setTimeout(() => {
+        copyText.innerText = originalText;
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }, 3000);
+    }
+  </script>
+</body>
+</html>
