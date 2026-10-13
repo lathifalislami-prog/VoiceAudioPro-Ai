@@ -1,9 +1,8 @@
 {
-  "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/api/capi",
-      "destination": "/api/capi.js"
+      "source": "/api/(.*)",
+      "destination": "/api/$1"
     }
   ]
 }
