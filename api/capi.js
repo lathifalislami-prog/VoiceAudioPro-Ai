@@ -4,11 +4,15 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { event_name, event_source_url, custom_data } = req.body;
+    // Parsing body jika berupa string/text/plain
+    let bodyData = req.body;
+    if (typeof bodyData === 'string') {
+      bodyData = JSON.parse(bodyData);
+    }
 
-    // Ambil token dari Environment Variables Vercel
-    const ACCESS_TOKEN = process.env.kunci__VOICE_AUDIOPROAI;
-    const PIXEL_ID = '1672205417903686'; // Sesuai ID Dataset Meta lu
+    const { event_name, event_source_url, custom_data } = bodyData;
+    const ACCESS_TOKEN = process.env.kunci_VOICE_AUDIOPROAI; // Variabel Environment Vercel kamu
+    const PIXEL_ID = '1672205417903686';
 
     const payload = {
       data: [
