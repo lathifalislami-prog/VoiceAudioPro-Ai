@@ -1,14 +1,17 @@
 export default async function handler(req, res) {
-  // Hanya izinkan method POST
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
   const { event_name, event_source_url, test_event_code, custom_data } = req.body;
 
-  // Masukkan Token & Pixel ID Meta Kamu
-  const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN || 'MASUKKAN_ACCESS_TOKEN_META_KAMU';
+  // Mengambil Token & Pixel ID dengan aman dari System Environment Vercel
+  const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
   const PIXEL_ID = process.env.META_PIXEL_ID || '1672205417903686';
+
+  if (!ACCESS_TOKEN) {
+    return res.status(500).json({ status: 'error', message: 'META_ACCESS_TOKEN belum diset di Vercel Settings!' });
+  }
 
   try {
     const payload = {
