@@ -6,7 +6,7 @@ export default async function handler(req, res) {
   const { event_name, event_source_url, test_event_code, custom_data } = req.body;
 
   // Mengambil Token & Pixel ID dengan aman dari System Environment Vercel
-  const ACCESS_TOKEN = process.env.META_ACCESS_TOKEN;
+  const ACCESS_TOKEN = process.env.kunci_VOICE_AUDIOPROAI;;
   const PIXEL_ID = process.env.META_PIXEL_ID || '1672205417903686';
 
   if (!ACCESS_TOKEN) {
