@@ -1041,13 +1041,7 @@
         sendServerCAPI('PlayAudioDemo', { audio_title: audioTitle });
       }
     </script>
-    <!-- (Bagian penutup kode HTML kamu di bawah...) -->
-
-    <!-- JAVASCRIPT SCRIPTS COMBINED -->
-    <script>
-      // ... (kode fungsi lain seperti togglePlayAudio, lightbox, dll tetap di sini) ...
-
-     <!-- JAVASCRIPT SCRIPTS COMBINED -->
+  <!-- JAVASCRIPT SCRIPTS COMBINED -->
     <script>
       function sendServerCAPI(eventName, customData = {}) {
         const payload = {
@@ -1056,35 +1050,33 @@
           custom_data: customData
         };
 
-        // Menggunakan sendBeacon agar aman di iPhone/Safari dan tidak terpotong saat pindah halaman
+        const ENDPOINT = '/api/v1/sync-session'; // Endpoint tersamar agar lolos Adblocker
+
+        // Gunakan sendBeacon jika didukung browser
         if (navigator.sendBeacon) {
           try {
-            let blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
-            navigator.sendBeacon('/api/capi', blob);
-            console.log(`[CAPI Beacon Sent] ${eventName}`);
+            let blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' }); // Gunakan text/plain agar tidak memicu Preflight CORS check Adblock
+            navigator.sendBeacon(ENDPOINT, blob);
             return;
           } catch (e) {
             console.warn('Beacon failed, falling back to fetch', e);
           }
         }
 
-        // Fallback fetch standar dengan keepalive
-        fetch('/api/capi', {
+        // Fallback fetch dengan keepalive
+        fetch(ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'text/plain' }, // Bypass inspeksi header adblocker
           keepalive: true,
           body: JSON.stringify(payload)
-        })
-        .then(response => response.json())
-        .then(data => console.log('CAPI Response:', data))
-        .catch(err => console.log('CAPI Error:', err));
+        }).catch(err => console.log('Sync err:', err));
       }
 
-      // 1. PageView Event saat load halaman
+      // 1. PageView Event
       document.addEventListener("DOMContentLoaded", function () {
         sendServerCAPI('PageView', { page_title: document.title });
 
-        // 2. Tracking CTA Click menuju orderhero.id dengan nama custom "clik cta"
+        // 2. Tracking CTA Click ke orderhero.id
         document.querySelectorAll('a').forEach(link => {
           if (link.href && link.href.includes('orderhero.id')) {
             link.addEventListener('click', function (e) {
@@ -1097,7 +1089,7 @@
         });
       });
 
-      // 3. Tracking Scroll Depth dari 20% hingga 90%
+      // 3. Tracking Scroll Depth (20% - 90%)
       let scrollMilestones = { 20: false, 40: false, 60: false, 80: false, 90: false };
       window.addEventListener('scroll', function () {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
