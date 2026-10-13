@@ -43,8 +43,7 @@ export default async function handler(req, res) {
           },
           custom_data: custom_data || {}
         }
-      ],
-      test_event_code: 'TEST87444' // <-- Hapus atau kosongkan baris ini kalau iklannya sudah mulai tayang live/aktif
+      ]
     };
 
     // Kirim data secara Server-to-Server ke Meta Graph API
