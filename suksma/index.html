@@ -21,7 +21,6 @@
   'https://connect.facebook.net/en_US/fbevents.js');
   fbq('init', '1672205417903686');
   fbq('track', 'PageView');
-  fbq('track', 'Purchase');
   </script>
   <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1672205417903686&ev=PageView&noscript=1"/></noscript>
 
@@ -269,7 +268,6 @@
     function copyDriveLink() {
       const driveUrl = "https://drive.google.com/drive/folders/1sdhO7KTlOi48ljJtq9vRV4VasEyqDcpc";
       
-      // Copy functionality compliant with iframe restrictions
       const dummyInput = document.createElement('input');
       document.body.appendChild(dummyInput);
       dummyInput.value = driveUrl;
@@ -277,12 +275,10 @@
       document.execCommand('copy');
       document.body.removeChild(dummyInput);
 
-      // UI Text Feedback
       const copyText = document.getElementById('copyText');
       const originalText = copyText.innerText;
       copyText.innerText = "Berhasil Disalin! ✓";
       
-      // Toast notification
       const toast = document.getElementById('toast');
       toast.classList.remove('translate-y-20', 'opacity-0');
       
@@ -292,35 +288,53 @@
       }, 3000);
     }
   </script>
+
+  <!-- CAPI Purchase Tracking Script -->
   <script>
-  function sendServerCAPI(eventName, customData = {}) {
-    fetch('/api/capi', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    function sendServerCAPI(eventName, customData = {}, eventId = null) {
+      const payload = {
         event_name: eventName,
         event_source_url: window.location.href,
+        event_id: eventId,
         custom_data: customData
-      })
-    })
-    .then(res => res.json())
-    .then(data => console.log('CAPI Response:', data))
-    .catch(err => console.error('CAPI Error:', err));
-  }
+      };
 
-  document.addEventListener("DOMContentLoaded", function () {
-    // Jalankan Browser Pixel
-    if (typeof fbq === 'function') {
-      fbq('track', 'Purchase', { value: 75000, currency: 'IDR' });
+      const ENDPOINT = '/api/v1/sync-session';
+
+      if (navigator.sendBeacon) {
+        try {
+          let blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' });
+          navigator.sendBeacon(ENDPOINT, blob);
+          return;
+        } catch (e) {
+          console.warn('Beacon failed', e);
+        }
+      }
+
+      fetch(ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain' },
+        keepalive: true,
+        body: JSON.stringify(payload)
+      }).catch(err => console.log('Sync err:', err));
     }
 
-    // Jalankan Server CAPI
-    sendServerCAPI('Purchase', {
-      currency: 'IDR',
-      value: 75000,
-      content_name: 'Voice Over AI Full Access'
+    document.addEventListener("DOMContentLoaded", function () {
+      const purchaseEventId = 'pur_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+      const purchaseData = {
+        currency: 'IDR',
+        value: 75000,
+        content_name: 'Voice Over AI Full Access'
+      };
+
+      // 1. Jalankan Browser Pixel dengan Event ID
+      if (typeof fbq === 'function') {
+        fbq('track', 'Purchase', purchaseData, { eventID: purchaseEventId });
+      }
+
+      // 2. Jalankan Server CAPI dengan Endpoint Tersamar & Event ID yang Sama
+      sendServerCAPI('Purchase', purchaseData, purchaseEventId);
     });
-  });
-</script>
+  </script>
 </body>
 </html>
