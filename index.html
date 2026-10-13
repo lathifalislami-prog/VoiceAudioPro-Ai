@@ -287,8 +287,6 @@
 
         </div>
       </section>
-
-
       <!-- SECTION 2: PAIN / RELATABILITY SECTION -->
       <section class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t border-slate-800/60 reveal-on-scroll">
         <div class="text-center max-w-3xl mx-auto mb-12">
@@ -521,7 +519,106 @@
               <p class="text-xs text-slate-400 truncate">Naratif berat & film dokumenter</p>
             </div>
           </div>
+</script>
+<!-- ========================================== -->
+<!-- POP-UP MODAL SPESIAL HARI INI              -->
+<!-- ========================================== -->
+<div id="promo-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 ease-out">
+  <div class="modal-card relative w-full max-w-md bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-brand-dark border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_80px_rgba(6,182,212,0.25)] transform scale-90 transition-all duration-500 ease-out overflow-hidden">
+    
+    <!-- Glow Background -->
+    <div class="absolute -top-20 -left-20 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
 
+    <!-- Tombol Close (X) -->
+    <button id="close-modal" aria-label="Tutup Promo" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center border border-slate-700/80 transition-all z-20 group">
+      <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+      </svg>
+    </button>
+
+    <!-- Content Pop-Up -->
+    <div class="relative z-10 text-center space-y-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-cyan-300 text-xs font-bold tracking-wide shadow-inner">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+        ⚡ PENAWARAN TERBATAS
+      </div>
+
+      <div class="space-y-1">
+        <h3 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-400">Hanya Spesial Hari Ini</h3>
+        <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
+          Akses Voice Over AI <br>
+          <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">
+            Cuma Rp75.000!
+          </span>
+        </h2>
+      </div>
+
+      <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 shadow-inner relative overflow-hidden">
+        <div class="flex items-center justify-center gap-3">
+          <span class="text-slate-500 text-sm line-through font-medium">Rp499.000</span>
+          <span class="text-3xl sm:text-4xl font-black text-cyan-400 tracking-tight">Rp75.000</span>
+          <span class="text-[10px] font-extrabold bg-gradient-to-r from-red-500 to-rose-600 text-white px-2 py-0.5 rounded-md shadow-sm">
+            HEMAT 85%
+          </span>
+        </div>
+        <p class="text-[11px] text-slate-300 mt-2 font-medium">
+          Dapatkan Full Akses Voice Over AI + Seluruh Bonus Spesial!
+        </p>
+      </div>
+
+      <button id="claim-promo-btn" class="w-full py-4 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-sm sm:text-base rounded-2xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-200 border border-cyan-300/40 flex items-center justify-center gap-2.5 group">
+        <span>AMBIL PENAWARAN RP75.000</span>
+        <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/>
+        </svg>
+      </button>
+
+      <p class="text-[10px] text-slate-400 flex items-center justify-center gap-1">
+        <svg class="w-3.5 h-3.5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+        </svg>
+        Garansi Akses Langsung Aktif • Sekali Bayar
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const modal = document.getElementById("promo-modal");
+    const modalContent = modal.querySelector(".modal-card");
+    const closeBtn = document.getElementById("close-modal");
+    const claimBtn = document.getElementById("claim-promo-btn");
+
+    setTimeout(() => {
+      modal.classList.remove("opacity-0", "pointer-events-none");
+      modal.classList.add("opacity-100");
+      modalContent.classList.remove("scale-90");
+      modalContent.classList.add("scale-100");
+    }, 1000);
+
+    function closeModal() {
+      modal.classList.remove("opacity-100");
+      modal.classList.add("opacity-0", "pointer-events-none");
+      modalContent.classList.remove("scale-100");
+      modalContent.classList.add("scale-90");
+    }
+
+    closeBtn.addEventListener("click", closeModal);
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) closeModal();
+    });
+
+    claimBtn.addEventListener("click", function () {
+      closeModal();
+      const targetSection = document.getElementById("penawaran-terbatas");
+      if (targetSection) {
+        targetSection.scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+</script>
           <!-- Character Card 3 -->
           <div class="bg-slate-900/80 border border-slate-800 p-4 rounded-xl flex items-center gap-3">
             <div class="w-10 h-10 rounded-full bg-blue-500/20 border border-blue-500/40 flex items-center justify-center text-blue-400 font-bold text-sm shrink-0">
@@ -1167,8 +1264,6 @@
 
         </div>
       </section>
-
-
       <!-- SECTION 15: VALUE STACK & PRICING SECTION -->
       <section id="pricing" class="py-16 sm:py-24 px-4 sm:px-6 max-w-5xl mx-auto reveal-on-scroll">
         <div class="text-center max-w-2xl mx-auto mb-10">
@@ -1210,7 +1305,7 @@
                 Indonesian & International Language Support
               </div>
             </div>
-
+<section id="penawaran-terbatas" class="relative my-6 px-4 sm:px-6 max-w-4xl mx-auto z-20"></section>
             <div class="space-y-3 border-b border-slate-800 pb-6">
               <p class="text-xs font-bold text-sky-400 uppercase tracking-wider">[ BONUS PLUS & LAB ]</p>
               
@@ -1228,16 +1323,119 @@
             <div>
               <div class="flex items-baseline gap-3 mb-2">
                 <span class="text-xs text-slate-500 line-through">Rp 499.000</span>
-                <span class="text-4xl sm:text-5xl font-black text-white">Rp 99.000</span>
+                <span class="text-4xl sm:text-5xl font-black text-white">Rp 75.000</span>
               </div>
               <p class="text-xs text-cyan-400 font-semibold mb-6">
                 ⚡ Sekali Bayar • Akses Selamanya (NO Hidden Fees / NO Monthly Fee)
               </p>
 
-              <a href="https://voiceproai.orderhero.id/form/form-order-voice-audio-proai" class="cta-trigger w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black text-lg rounded-2xl shadow-xl shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-[1.02] active:scale-95 transition-all text-center">
-                <span>DAPATKAN SEKARANG — Rp99.000</span>
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-              </a>
+              <!-- ========================================== -->
+<!-- PROMO SPESIAL HARI INI + COUNTDOWN TIMER -->
+<!-- ========================================== -->
+<section class="relative my-6 px-4 sm:px-6 max-w-4xl mx-auto z-20">
+  <div class="relative rounded-2xl bg-gradient-to-r from-slate-900 via-cyan-950/50 to-slate-900 border border-cyan-500/40 p-5 sm:p-6 shadow-[0_0_40px_rgba(6,182,212,0.15)] overflow-hidden">
+    
+    <!-- Background Glow Effect -->
+    <div class="absolute -right-10 -top-10 w-40 h-40 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-5 relative z-10">
+      
+      <!-- Left Info: Badge & Pricing -->
+      <div class="text-center md:text-left space-y-1.5">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-300 text-xs font-bold">
+          <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+          🔥 HANYA SPESIAL HARI INI
+        </div>
+        <h3 class="text-lg sm:text-xl font-extrabold text-white">
+          Akses Voice Over AI + All Bonuses
+        </h3>
+        <p class="text-xs sm:text-sm text-slate-300">
+          Dapatkan semua fitur premium seharga <span class="line-through text-slate-400">Rp499.000</span> cukup bayar:
+        </p>
+        <div class="flex items-center justify-center md:justify-start gap-2 pt-1">
+          <span class="text-2xl sm:text-3xl font-black text-cyan-400 tracking-tight">Rp75.000</span>
+          <span class="text-[10px] bg-red-500/20 text-red-400 font-bold px-2 py-0.5 rounded border border-red-500/30">Hemat 85%</span>
+        </div>
+      </div>
+
+      <!-- Right Side: Cooldown Timer & CTA -->
+      <div class="flex flex-col items-center gap-3 w-full md:w-auto">
+        
+        <!-- Timer Box -->
+        <div class="flex items-center gap-2 text-center">
+          <span class="text-xs text-slate-400 font-medium uppercase tracking-wider mb-0.5 block w-full">Promo Berakhir Dalam:</span>
+        </div>
+        <div class="flex items-center gap-2 text-white font-mono font-bold text-base">
+          <div class="bg-slate-950 border border-cyan-500/30 px-3 py-1.5 rounded-lg text-cyan-400 shadow-inner">
+            <span id="promo-hours">23</span><span class="text-[10px] text-slate-400 block font-normal">Jam</span>
+          </div>
+          <span class="text-cyan-400">:</span>
+          <div class="bg-slate-950 border border-cyan-500/30 px-3 py-1.5 rounded-lg text-cyan-400 shadow-inner">
+            <span id="promo-minutes">59</span><span class="text-[10px] text-slate-400 block font-normal">Menit</span>
+          </div>
+          <span class="text-cyan-400">:</span>
+          <div class="bg-slate-950 border border-cyan-500/30 px-3 py-1.5 rounded-lg text-cyan-400 shadow-inner">
+            <span id="promo-seconds">59</span><span class="text-[10px] text-slate-400 block font-normal">Detik</span>
+          </div>
+        </div>
+
+        <!-- Action Button -->
+        <a href="https://voiceproai.orderhero.id/form/form-order-voice-audio-proai" target="_blank" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-cyan-500 to-sky-500 text-white font-extrabold text-sm rounded-xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-200 border border-cyan-300/30 text-center">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+          </svg>
+          AMBIL PROMO Rp75.000 SEKARANG
+        </a>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Script untuk Countdown Timer 24 Jam dengan LocalStorage -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const STORAGE_KEY = "voicepro_promo_timer_end";
+    const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+
+    let endTime = localStorage.getItem(STORAGE_KEY);
+
+    if (!endTime || new Date().getTime() > parseInt(endTime)) {
+      endTime = new Date().getTime() + TWENTY_FOUR_HOURS;
+      localStorage.setItem(STORAGE_KEY, endTime);
+    } else {
+      endTime = parseInt(endTime);
+    }
+
+    function updateTimer() {
+      const now = new Date().getTime();
+      const distance = endTime - now;
+
+      if (distance < 0) {
+        // Reset otomatis jika sudah 24 jam tercapai
+        endTime = new Date().getTime() + TWENTY_FOUR_HOURS;
+        localStorage.setItem(STORAGE_KEY, endTime);
+      }
+
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      const hoursEl = document.getElementById("promo-hours");
+      const minutesEl = document.getElementById("promo-minutes");
+      const secondsEl = document.getElementById("promo-seconds");
+
+      if (hoursEl) hoursEl.textContent = String(hours).padStart(2, "0");
+      if (minutesEl) minutesEl.textContent = String(minutes).padStart(2, "0");
+      if (secondsEl) secondsEl.textContent = String(seconds).padStart(2, "0");
+    }
+
+    updateTimer();
+    setInterval(updateTimer, 1000);
+  });
+</script>
+<!-- ========================================== -->
             </div>
 
           </div>
@@ -1320,7 +1518,7 @@
               <span class="transition group-open:rotate-180 text-cyan-400">▼</span>
             </summary>
             <p class="mt-4 text-sm text-slate-300 leading-relaxed">
-              Harganya promo saat ini adalah Rp99.000 (Sekali bayar untuk akses selamanya / lifetime). Tanpa biaya bulanan atau tersembunyi.
+              Harganya promo saat ini adalah Rp75.000 (Sekali bayar untuk akses selamanya / lifetime). Tanpa biaya bulanan atau tersembunyi.
             </p>
           </details>
 
@@ -1339,7 +1537,7 @@
           </p>
 
           <a href="https://voiceproai.orderhero.id/form/form-order-voice-audio-proai" class="cta-trigger inline-flex items-center justify-center gap-3 px-10 py-5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black text-xl rounded-2xl shadow-xl shadow-cyan-500/30 hover:scale-105 active:scale-95 transition-all">
-            <span>GAS SEKARANG — Rp99.000 →</span>
+            <span>GAS SEKARANG — Rp75.000 →</span>
           </a>
         </div>
       </section>
@@ -1364,7 +1562,7 @@
       <div class="flex items-center justify-between gap-2">
         <div class="min-w-0">
           <p class="text-xs font-bold text-white truncate">Voice Audio Pro AI</p>
-          <p class="text-[10px] text-cyan-400 font-mono">Rp99.000 • Lifetime</p>
+          <p class="text-[10px] text-cyan-400 font-mono">Rp75.000 • Lifetime</p>
         </div>
         <a href="https://voiceproai.orderhero.id/form/form-order-voice-audio-proai" class="cta-trigger shrink-0 px-4 py-2.5 bg-gradient-to-r from-cyan-500 to-sky-500 text-slate-950 font-black text-xs rounded-xl shadow-md">
           DAPATKAN AKSES →
@@ -1394,9 +1592,7 @@
         <img id="lightbox-img" src="" alt="Zoomed Screenshot" class="w-full h-auto rounded-2xl border border-slate-700">
       </div>
     </div>
-
-
-    <script>
+<script>
       /* AUDIO PLAYER SINGLETON LOGIC */
       let currentAudio = null;
       let currentButton = null;
@@ -1410,30 +1606,25 @@
         const pauseIcon = card.querySelector('.pause-icon');
         const waveBars = card.querySelectorAll('.wave-bar');
 
-        // If clicking the same audio that is currently playing -> Pause it
         if (currentAudio && currentAudio.src === audioSrc && !currentAudio.paused) {
           currentAudio.pause();
           resetAudioUI();
           return;
         }
 
-        // Stop any currently playing audio
         if (currentAudio) {
           currentAudio.pause();
           resetAudioUI();
         }
 
-        // Create new audio player
         currentAudio = new Audio(audioSrc);
         currentButton = btn;
 
-        // UI state update to Playing
         playIcon.classList.add('hidden');
         pauseIcon.classList.remove('hidden');
         waveBars.forEach(bar => bar.classList.add('animate-wave', 'bg-cyan-400'));
 
         currentAudio.play().then(() => {
-          // Fire Analytics Event for Audio Interaction
           trackAudioPlay(title);
         }).catch(err => {
           console.log('Audio playback error:', err);
@@ -1451,7 +1642,6 @@
         document.querySelectorAll('.wave-bar').forEach(bar => bar.classList.remove('animate-wave', 'bg-cyan-400'));
       }
 
-
       /* LIGHTBOX MODAL LOGIC */
       function openLightbox(imgSrc) {
         const modal = document.getElementById('lightbox-modal');
@@ -1467,7 +1657,6 @@
         modal.classList.remove('flex');
       }
 
-
       /* INTERSECTION OBSERVER FOR REVEAL ANIMATIONS & STICKY CTA */
       document.addEventListener('DOMContentLoaded', () => {
         const observer = new IntersectionObserver((entries) => {
@@ -1480,8 +1669,6 @@
 
         document.querySelectorAll('.reveal-on-scroll').forEach(el => observer.observe(el));
 
-
-        /* STICKY MOBILE CTA TRIGGER ON SCROLL DOWN (Target Area: Testimonial / Value Stack / Pricing) */
         const mobileCta = document.getElementById('mobile-sticky-cta');
         const pricingSection = document.getElementById('pricing');
 
@@ -1499,15 +1686,12 @@
           ctaObserver.observe(pricingSection);
         }
 
-
-        /* TRACKING EVENT LISTENERS FOR ALL CTA BUTTONS */
         document.querySelectorAll('.cta-trigger').forEach(btn => {
           btn.addEventListener('click', () => {
             trackCTAClick();
           });
         });
       });
-
 
       /* SOCIAL PROOF NOTIFICATION LOGIC */
       const SOCIAL_PROOF_DATA = [
@@ -1532,7 +1716,6 @@
       let spTimer = null;
 
       function startSocialProof() {
-        // Initial Delay: 15 seconds after arrival
         setTimeout(() => {
           showNextSocialProof();
         }, 15000);
@@ -1549,16 +1732,13 @@
         nameEl.textContent = data.name;
         timeEl.textContent = data.time;
 
-        // Show toast
         toast.classList.remove('opacity-0', 'translate-y-6', 'pointer-events-none');
         toast.classList.add('opacity-100', 'translate-y-0');
 
-        // Hide after 4.5 seconds
         setTimeout(() => {
           toast.classList.remove('opacity-100', 'translate-y-0');
           toast.classList.add('opacity-0', 'translate-y-6', 'pointer-events-none');
 
-          // Dynamic repeat pattern: 5s -> 8s -> 10s -> loop
           spIndex++;
           const intervals = [5000, 8000, 10000];
           const nextInterval = intervals[spIndex % intervals.length];
@@ -1576,9 +1756,21 @@
 
       startSocialProof();
 
+      /* BACKEND VERCEL CAPI CONNECTOR */
+      function sendServerCAPI(eventName, customData = {}) {
+        fetch('/api/capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            event_name: eventName,
+            event_source_url: window.location.href,
+            custom_data: customData
+          })
+        }).catch(err => console.log('CAPI Error:', err));
+      }
 
-      /* AUTOMATIC ANALYTICS & PIXEL TRACKING EVENTS */
-      // 1. Scroll Depth Tracking (25%, 50%, 75%, 90%)
+      /* AUTOMATIC ANALYTICS & PIXEL + VERCEL CAPI TRACKING EVENTS */
+      // 1. Scroll Depth Tracking (10% sampai 100%)[cite: 1]
       const firedMilestones = new Set();
       window.addEventListener('scroll', () => {
         const scrollTop = window.scrollY;
@@ -1587,7 +1779,7 @@
         
         const scrollPercent = Math.round((scrollTop / docHeight) * 100);
 
-        [25, 50, 75, 90].forEach(milestone => {
+        [10, 25, 50, 75, 90, 100].forEach(milestone => {
           if (scrollPercent >= milestone && !firedMilestones.has(milestone)) {
             firedMilestones.add(milestone);
             
@@ -1597,6 +1789,9 @@
             if (typeof ttq === 'object' && ttq.track) ttq.track('ScrollDepth', { depth: milestone + '%' });
             // Google Analytics 4
             if (typeof gtag === 'function') gtag('event', 'scroll', { percent_scrolled: milestone });
+            
+            // Kirim ke Vercel Backend CAPI
+            sendServerCAPI('ScrollDepth', { percent: milestone });
           }
         });
       });
@@ -1606,13 +1801,19 @@
         if (typeof fbq === 'function') fbq('trackCustom', 'PlayAudioDemo', { audio_title: audioTitle });
         if (typeof ttq === 'object' && ttq.track) ttq.track('PlayAudioDemo');
         if (typeof gtag === 'function') gtag('event', 'select_content', { content_type: 'audio', item_id: audioTitle });
+        
+        // Kirim ke Vercel Backend CAPI
+        sendServerCAPI('PlayAudioDemo', { audio_title: audioTitle });
       }
 
-      // 3. CTA Click Tracking Event (ClickCTA - NOT InitiateCheckout to prevent dups)
+      // 3. CTA Click Tracking Event
       function trackCTAClick() {
         if (typeof fbq === 'function') fbq('trackCustom', 'ClickCTA');
         if (typeof ttq === 'object' && ttq.track) ttq.track('ClickCTA');
         if (typeof gtag === 'function') gtag('event', 'select_content', { content_type: 'cta_button' });
+        
+        // Kirim ke Vercel Backend CAPI
+        sendServerCAPI('ClickCTA');
       }
     </script>
 </body>
