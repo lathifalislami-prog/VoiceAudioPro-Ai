@@ -1043,30 +1043,29 @@
     </script>
   <!-- JAVASCRIPT SCRIPTS COMBINED -->
     <script>
-      function sendServerCAPI(eventName, customData = {}) {
+      function sendServerCAPI(eventName, customData = {}, eventId = null) {
         const payload = {
           event_name: eventName,
           event_source_url: window.location.href,
+          event_id: eventId,
           custom_data: customData
         };
 
-        const ENDPOINT = '/api/v1/sync-session'; // Endpoint tersamar agar lolos Adblocker
+        const ENDPOINT = '/api/v1/sync-session';
 
-        // Gunakan sendBeacon jika didukung browser
         if (navigator.sendBeacon) {
           try {
-            let blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' }); // Gunakan text/plain agar tidak memicu Preflight CORS check Adblock
+            let blob = new Blob([JSON.stringify(payload)], { type: 'text/plain' });
             navigator.sendBeacon(ENDPOINT, blob);
             return;
           } catch (e) {
-            console.warn('Beacon failed, falling back to fetch', e);
+            console.warn('Beacon failed', e);
           }
         }
 
-        // Fallback fetch dengan keepalive
         fetch(ENDPOINT, {
           method: 'POST',
-          headers: { 'Content-Type': 'text/plain' }, // Bypass inspeksi header adblocker
+          headers: { 'Content-Type': 'text/plain' },
           keepalive: true,
           body: JSON.stringify(payload)
         }).catch(err => console.log('Sync err:', err));
@@ -1074,16 +1073,27 @@
 
       // 1. PageView Event
       document.addEventListener("DOMContentLoaded", function () {
-        sendServerCAPI('PageView', { page_title: document.title });
+        const pageViewId = 'pv_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+        
+        if (typeof fbq === 'function') {
+          fbq('track', 'PageView', {}, { eventID: pageViewId });
+        }
+        sendServerCAPI('PageView', { page_title: document.title }, pageViewId);
 
         // 2. Tracking CTA Click ke orderhero.id
         document.querySelectorAll('a').forEach(link => {
           if (link.href && link.href.includes('orderhero.id')) {
             link.addEventListener('click', function (e) {
+              const ctaEventId = 'cta_' + Date.now() + '_' + Math.floor(Math.random() * 1000000);
+
+              if (typeof fbq === 'function') {
+                fbq('trackCustom', 'clik cta', { destination_url: this.href }, { eventID: ctaEventId });
+              }
+
               sendServerCAPI('clik cta', {
                 button_text: this.innerText.trim() || 'CTA Button',
                 destination_url: this.href
-              });
+              }, ctaEventId);
             });
           }
         });
@@ -1101,7 +1111,13 @@
         [20, 40, 60, 80, 90].forEach(milestone => {
           if (scrollPercent >= milestone && !scrollMilestones[milestone]) {
             scrollMilestones[milestone] = true;
-            sendServerCAPI('ScrollDepth', { depth: milestone + '%' });
+            const scrollEventId = 'scroll_' + milestone + '_' + Date.now();
+
+            if (typeof fbq === 'function') {
+              fbq('trackCustom', 'ScrollDepth', { depth: milestone + '%' }, { eventID: scrollEventId });
+            }
+
+            sendServerCAPI('ScrollDepth', { depth: milestone + '%' }, scrollEventId);
           }
         });
       });
