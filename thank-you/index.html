@@ -292,28 +292,35 @@
       }, 3000);
     }
   </script>
-  <!-- KODE TAMBAHAN VERCEL SERVER-SIDE CAPI UNTUK PURCHASE -->
   <script>
-    function sendServerCAPI(eventName, customData = {}) {
-      fetch('/api/capi', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          event_name: eventName,
-          event_source_url: window.location.href,
-          custom_data: customData
-        })
-      }).catch(err => console.log('CAPI Error:', err));
+  function sendServerCAPI(eventName, customData = {}) {
+    fetch('/api/capi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        event_name: eventName,
+        event_source_url: window.location.href,
+        custom_data: customData
+      })
+    })
+    .then(res => res.json())
+    .then(data => console.log('CAPI Response:', data))
+    .catch(err => console.error('CAPI Error:', err));
+  }
+
+  document.addEventListener("DOMContentLoaded", function () {
+    // Jalankan Browser Pixel
+    if (typeof fbq === 'function') {
+      fbq('track', 'Purchase', { value: 75000, currency: 'IDR' });
     }
 
-    // Kirim event Purchase otomatis begitu halaman Thank You Page terbuka
-    document.addEventListener("DOMContentLoaded", () => {
-      sendServerCAPI('Purchase', {
-        currency: 'IDR',
-        value: 75000,
-        content_name: 'Voice Over AI Full Access'
-      });
+    // Jalankan Server CAPI
+    sendServerCAPI('Purchase', {
+      currency: 'IDR',
+      value: 75000,
+      content_name: 'Voice Over AI Full Access'
     });
-  </script>
+  });
+</script>
 </body>
 </html>
