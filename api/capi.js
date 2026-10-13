@@ -19,13 +19,13 @@ export default async function handler(req, res) {
       bodyData = JSON.parse(bodyData);
     }
 
-    const { event_name, event_source_url, custom_data } = bodyData;
+    const { event_name, event_source_url, event_id, custom_data } = bodyData;
     
     // Ambil Token dari Environment Variables Vercel
     const ACCESS_TOKEN = process.env.kunci_VOICE_AUDIOPROAI; 
     const PIXEL_ID = '1672205417903686'; // ID Dataset Meta kamu
 
-    // --- (NOMOR 1) AMBIL IP & USER AGENT OTOMATIS DARI HEADER VERCEL ---
+    // --- AMBIL IP & USER AGENT OTOMATIS DARI HEADER VERCEL ---
     const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress;
     const userAgent = req.headers['user-agent'];
 
@@ -34,6 +34,7 @@ export default async function handler(req, res) {
         {
           event_name: event_name,
           event_time: Math.floor(Date.now() / 1000),
+          event_id: event_id || undefined, // Mendukung deduplikasi event dari browser
           event_source_url: event_source_url,
           action_source: 'website',
           user_data: {
@@ -42,7 +43,8 @@ export default async function handler(req, res) {
           },
           custom_data: custom_data || {}
         }
-      ]
+      ],
+      test_event_code: 'TEST87444' // <-- Hapus atau kosongkan baris ini kalau iklannya sudah mulai tayang live/aktif
     };
 
     // Kirim data secara Server-to-Server ke Meta Graph API
