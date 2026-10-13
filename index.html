@@ -1041,5 +1041,66 @@
         sendServerCAPI('PlayAudioDemo', { audio_title: audioTitle });
       }
     </script>
+    <!-- (Bagian penutup kode HTML kamu di bawah...) -->
+
+    <!-- JAVASCRIPT SCRIPTS COMBINED -->
+    <script>
+      // ... (kode fungsi lain seperti togglePlayAudio, lightbox, dll tetap di sini) ...
+
+      // TARUH KODE DI SINI (BAGIAN PALING BAWAH SEBELUM PENUTUP SCRIPT / BODY)
+      function sendServerCAPI(eventName, customData = {}) {
+        fetch('/api/capi', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            event_name: eventName, 
+            event_source_url: window.location.href, 
+            custom_data: customData 
+          })
+        })
+        .then(response => response.json())
+        .then(data => console.log('CAPI Response:', data))
+        .catch(err => console.log('CAPI Error:', err));
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        sendServerCAPI('PageView', { page_title: document.title });
+
+        document.querySelectorAll('a[href*="orderhero.id"], .cta-trigger').forEach(button => {
+          button.addEventListener('click', function () {
+            sendServerCAPI('ClickCTA', {
+              button_text: this.innerText.trim() || 'CTA Button',
+              destination_url: this.href || 'OrderHero Form'
+            });
+          });
+        });
+      });
+
+      let scrollMilestones = { 25: false, 50: false, 75: false, 100: false };
+      window.addEventListener('scroll', function () {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrollPercent = Math.round((scrollTop / docHeight) * 100);
+
+        if (scrollPercent >= 25 && !scrollMilestones[25]) {
+          scrollMilestones[25] = true;
+          sendServerCAPI('ScrollDepth', { depth: '25%' });
+        }
+        if (scrollPercent >= 50 && !scrollMilestones[50]) {
+          scrollMilestones[50] = true;
+          sendServerCAPI('ScrollDepth', { depth: '50%' });
+        }
+        if (scrollPercent >= 75 && !scrollMilestones[75]) {
+          scrollMilestones[75] = true;
+          sendServerCAPI('ScrollDepth', { depth: '75%' });
+        }
+        if (scrollPercent >= 99 && !scrollMilestones[100]) {
+          scrollMilestones[100] = true;
+          sendServerCAPI('ScrollDepth', { depth: '100%' });
+        }
+      });
+    </script>
+</body>
+</html>
 </body>
 </html>
