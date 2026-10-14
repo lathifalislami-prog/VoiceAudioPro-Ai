@@ -1,3 +1,5 @@
+import crypto from 'crypto';
+
 export default async function handler(req, res) {
   // Izinkan CORS untuk keamanan akses lintas domain jika diperlukan
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -29,6 +31,10 @@ export default async function handler(req, res) {
     const clientIp = req.headers['x-forwarded-for'] || req.headers['x-real-ip'] || req.socket.remoteAddress;
     const userAgent = req.headers['user-agent'];
 
+    // Buat External ID anonim (di-hash SHA256) untuk memenuhi syarat Meta CAPI
+    const rawExternalId = event_id || `${Date.now()}-${Math.random()}`;
+    const hashedExternalId = crypto.createHash('sha256').update(rawExternalId).digest('hex');
+
     const payload = {
       data: [
         {
@@ -39,7 +45,8 @@ export default async function handler(req, res) {
           action_source: 'website',
           user_data: {
             client_ip_address: clientIp,
-            client_user_agent: userAgent
+            client_user_agent: userAgent,
+            external_id: [hashedExternalId] // Menutupi kekurangan data user agar lolos dari warning Meta
           },
           custom_data: custom_data || {}
         }
