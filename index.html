@@ -799,45 +799,6 @@
       </div>
     </div>
 
-    <!-- PROPO-UP MODAL (OVERLAY) -->
-    <div id="promo-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl opacity-0 pointer-events-none transition-all duration-500 ease-out">
-      <div class="modal-card relative w-full max-w-md bg-gradient-to-b from-slate-900/95 via-slate-900/90 to-brand-dark border border-cyan-500/40 rounded-3xl p-6 sm:p-8 shadow-[0_0_80px_rgba(6,182,212,0.25)] transform scale-90 transition-all duration-500 ease-out overflow-hidden">
-        <div class="absolute -top-20 -left-20 w-48 h-48 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <div class="absolute -bottom-20 -right-20 w-48 h-48 bg-sky-500/20 rounded-full blur-3xl pointer-events-none"></div>
-        <button id="close-modal" aria-label="Tutup Promo" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-400 hover:text-white flex items-center justify-center border border-slate-700/80 transition-all z-20 group">
-          <svg class="w-4 h-4 group-hover:rotate-90 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-        <div class="relative z-10 text-center space-y-5">
-          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-cyan-300 text-xs font-bold tracking-wide shadow-inner">
-            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>⚡ PENAWARAN TERBATAS
-          </div>
-          <div class="space-y-1">
-            <h3 class="text-xs sm:text-sm font-semibold uppercase tracking-wider text-slate-400">Hanya Spesial Hari Ini</h3>
-            <h2 class="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
-              Akses Voice Over AI <br>
-              <span class="bg-gradient-to-r from-cyan-400 via-sky-300 to-blue-400 bg-clip-text text-transparent">Cuma Rp75.000!</span>
-            </h2>
-          </div>
-          <div class="bg-slate-950/80 border border-cyan-500/30 rounded-2xl p-4 shadow-inner relative overflow-hidden">
-            <div class="flex items-center justify-center gap-3">
-              <span class="text-slate-500 text-sm line-through font-medium">Rp499.000</span>
-              <span class="text-3xl sm:text-4xl font-black text-cyan-400 tracking-tight">Rp75.000</span>
-              <span class="text-[10px] font-extrabold bg-gradient-to-r from-red-500 to-rose-600 text-white px-2 py-0.5 rounded-md shadow-sm">HEMAT 85%</span>
-            </div>
-            <p class="text-[11px] text-slate-300 mt-2 font-medium">Dapatkan Full Akses Voice Over AI + Seluruh Bonus Spesial!</p>
-          </div>
-          <button id="claim-promo-btn" class="cta-trigger w-full py-4 bg-gradient-to-r from-cyan-500 via-sky-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-extrabold text-sm sm:text-base rounded-2xl shadow-lg shadow-cyan-500/30 hover:shadow-cyan-500/50 hover:scale-[1.02] active:scale-95 transition-all duration-200 border border-cyan-300/40 flex items-center justify-center gap-2.5 group">
-            <span>AMBIL PENAWARAN RP75.000</span>
-            <svg class="w-5 h-5 group-hover:translate-y-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"/></svg>
-          </button>
-          <p class="text-[10px] text-slate-400 flex items-center justify-center gap-1">
-            <svg class="w-3.5 h-3.5 text-cyan-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/></svg>
-            Garansi Akses Langsung Aktif • Sekali Bayar
-          </p>
-        </div>
-      </div>
-    </div>
-
     <!-- JAVASCRIPT SCRIPTS COMBINED -->
     <script>
       let currentAudio = null;
@@ -934,34 +895,6 @@
         }
         updateTimer();
         setInterval(updateTimer, 1000);
-
-        // Pop-up Modal Auto Trigger
-        const modal = document.getElementById("promo-modal");
-        const modalContent = modal.querySelector(".modal-card");
-        const closeBtn = document.getElementById("close-modal");
-        const claimBtn = document.getElementById("claim-promo-btn");
-
-        setTimeout(() => {
-          modal.classList.remove("opacity-0", "pointer-events-none");
-          modal.classList.add("opacity-100");
-          modalContent.classList.remove("scale-90");
-          modalContent.classList.add("scale-100");
-        }, 1000);
-
-        function closeModal() {
-          modal.classList.remove("opacity-100");
-          modal.classList.add("opacity-0", "pointer-events-none");
-          modalContent.classList.remove("scale-100");
-          modalContent.classList.add("scale-90");
-        }
-
-        closeBtn.addEventListener("click", closeModal);
-        modal.addEventListener("click", function (e) { if (e.target === modal) closeModal(); });
-        claimBtn.addEventListener("click", function () {
-          closeModal();
-          const targetSection = document.getElementById("penawaran-terbatas");
-          if (targetSection) targetSection.scrollIntoView({ behavior: "smooth" });
-        });
 
         // Scroll Observer & Sticky CTA
         const observer = new IntersectionObserver((entries) => {
@@ -1122,7 +1055,5 @@
         });
       });
     </script>
-</body>
-</html>
 </body>
 </html>
